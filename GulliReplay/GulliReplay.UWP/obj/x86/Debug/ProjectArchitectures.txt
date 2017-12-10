@@ -1,1 +1,0 @@
-D:\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\GulliReplay.UWP.csproj;x86
