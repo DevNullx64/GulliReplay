@@ -2,5 +2,11 @@
 # Ce fichier .gitignore a été automatiquement créé par Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/GulliReplay/v15/Server/sqlite3
-/.vs/GulliReplay/v15
+/.vs
+/packages
+/GulliReplay/GulliReplay.Android/bin
+/GulliReplay/GulliReplay.Android/obj
+/GulliReplay/GulliReplay.iOS/bin
+/GulliReplay/GulliReplay.iOS/obj
+/GulliReplay/GulliReplay.UWP/bin
+/GulliReplay/GulliReplay.UWP/obj
