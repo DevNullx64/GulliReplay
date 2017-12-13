@@ -1,9 +1,8 @@
-﻿using GulliReplay.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GulliReplay.Services
+namespace GulliReplay
 {
     public interface ReplayDataSource
     {

@@ -1,5 +1,4 @@
-﻿using GulliReplay.Models;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -22,7 +21,10 @@ namespace GulliReplay
             var episode = args.SelectedItem as EpisodeInfo;
             if (episode == null)
                 return;
-            await Task.Run(() => Device.OpenUri(episode.GetVideoStream()));
+
+            //await Task.Run(() => Device.OpenUri(episode.GetVideoStream()));
+            await Navigation.PushAsync(new PlayBack(episode));
+
             ItemsListView.SelectedItem = null;
         }
 

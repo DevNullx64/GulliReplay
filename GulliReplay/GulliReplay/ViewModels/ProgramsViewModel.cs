@@ -1,5 +1,4 @@
-﻿using GulliReplay.Models;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -19,7 +18,7 @@ namespace GulliReplay
         {
             Title = "Browse";
             ProgramList = new ObservableCollection<ProgramInfo>();
-            DataStore = new ProgramDataStore(Services.GulliDataSource.Default);
+            DataStore = new ProgramDataStore(GulliDataSource.Default);
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
         }
 

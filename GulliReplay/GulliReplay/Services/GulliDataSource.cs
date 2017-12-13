@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using GulliReplay.Models;
 using System.Text.RegularExpressions;
 using System.Net;
 
-namespace GulliReplay.Services
+namespace GulliReplay
 {
     class GulliDataSource : ReplayDataSource
     {

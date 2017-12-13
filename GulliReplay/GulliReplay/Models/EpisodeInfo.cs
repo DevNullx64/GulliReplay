@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GulliReplay.Models
+namespace GulliReplay
 {
     public class EpisodeInfo
     {

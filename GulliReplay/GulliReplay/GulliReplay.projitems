@@ -28,7 +28,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Helpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\GulliDataSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\EpisodeDataStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\IStatusBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ReplayDataSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PlayBackViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
