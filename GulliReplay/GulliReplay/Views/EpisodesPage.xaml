@@ -18,10 +18,14 @@
                     <ViewCell>
                         <StackLayout Padding="10">
                             <Label Text="{Binding Title}" 
-                                   LineBreakMode="NoWrap" 
+                                   LineBreakMode="WordWrap" 
                                    Style="{DynamicResource ListItemTextStyle}" 
                                    FontSize="16" />
-                            <Image Source="{Binding ImageUrl}"/>
+                            <Label Text="{Binding SaisonEpisode}" 
+                                   LineBreakMode="WordWrap" 
+                                   Style="{DynamicResource ListItemTextStyle}" 
+                                   FontSize="12" />
+                            <Image x:Name="img" Source="{Binding ImageUrl}"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

@@ -2,35 +2,30 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GulliReplay.ProgramPage"
-              Title="{Binding Title}">
-	<ContentPage.ToolbarItems>
-		<ToolbarItem Text="Add" />
-	</ContentPage.ToolbarItems>
-    <ContentPage.Content>
-        <StackLayout>
-            <ListView x:Name="ItemsListView" 
-                ItemsSource="{Binding ProgramList}"
-                VerticalOptions="FillAndExpand"
-                 HasUnevenRows="true"
-                 RefreshCommand="{Binding LoadItemsCommand}"
-                 IsPullToRefreshEnabled="true"
-                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                 CachingStrategy="RecycleElement"
-                 ItemSelected="OnItemSelected">
-				<ListView.ItemTemplate>
-					<DataTemplate>
-						<ViewCell>
-							<StackLayout Padding="10">
-								<Label Text="{Binding Name}" 
-                                   LineBreakMode="NoWrap" 
-                                   Style="{DynamicResource ListItemTextStyle}" 
-                                   FontSize="16" />
-                                <Image Source="{Binding ImageUrl}"/>
-							</StackLayout>
-						</ViewCell>
-					</DataTemplate>
-				</ListView.ItemTemplate>
-			</ListView>
-		</StackLayout>
-	</ContentPage.Content>
+             Title="{Binding Title}">
+    <StackLayout>
+        <ListView x:Name="ItemsListView" 
+            ItemsSource="{Binding ProgramList}"
+            VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                RefreshCommand="{Binding LoadItemsCommand}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement"
+                ItemSelected="OnItemSelected">
+		    <ListView.ItemTemplate>
+			    <DataTemplate>
+				    <ViewCell>
+					    <StackLayout>
+                            <Label Text="{Binding Name}" 
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" />
+                            <Image x:Name="img" Source="{Binding ImageUrl}" />
+                        </StackLayout>
+				    </ViewCell>
+			    </DataTemplate>
+		    </ListView.ItemTemplate>
+	    </ListView>
+    </StackLayout>
 </ContentPage>

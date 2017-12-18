@@ -13,10 +13,11 @@ namespace GulliReplay
 
         public List<ProgramInfo> GetProgramList()
         {
+            //http://resize2-gulli.ladmedia.fr/r/180,135,smartcrop,center-top/img/var/storage/imports/replay/images_programme/robot_trains.jpg
             Regex ProgramRegex =
                 new Regex(@"(<div\s+class=""wrap-img\s+program""\s*>" +
                 @"\s*<a\s+href=""(?<url>http://replay\.gulli\.fr/(?<type>[^/]+)/[^""]+)""\s*>" +
-                @"\s*<img\s+src=""(?<img>http://[a-z1-9]+-gulli\.ladmedia\.fr/[^""]+)""\s*alt=""(?<name>[^""]+)""\s*/>" +
+                @"\s*<img\s+src=""(?<img>http://[a-z1-9]+-gulli\.ladmedia\.fr/r/[^""]+/img/var/storage/imports/(?<filename>[^""]+))""\s*alt=""(?<name>[^""]+)""\s*/>" +
                 @"\s*</a>\s*</div>)", RegexOptions.Multiline | RegexOptions.ExplicitCapture | RegexOptions.Singleline);
 
             MatchCollection matches = ProgramRegex.Matches(ProgramPage.GetContent());
@@ -31,7 +32,7 @@ namespace GulliReplay
                         m.Groups["type"].Value,
                         WebUtility.HtmlDecode(m.Groups["name"].Value),
                         m.Groups["url"].Value,
-                        m.Groups["img"].Value));
+                        GetImageUrl(m.Groups["filename"].Value)));
             }
             return result;
         }
@@ -39,7 +40,7 @@ namespace GulliReplay
         public List<EpisodeInfo> GetEpisodeList(ProgramInfo program)
         {
             Regex EpisodeRegex = new Regex(
-                    @"<a href=""" + program.Url + @"/VOD(?<vid>\d+)""><img class=""img-responsive""\s+src=""(?<img>[^""]+)""/><span\s+class=""title"">" +
+                    @"<a href=""" + program.Url + @"/VOD(?<vid>\d+)""><img class=""img-responsive""\s+src=""(?<img>[^""]+/img/var/storage/imports/(?<filename>[^""]+))""/><span\s+class=""title"">" +
                     @"<span>Saison (?<saison>\d+)\s*,\s*&Eacute;pisode\s*(?<episode>\d+)</span>(?<title>[^<]+)</span></a>",
                     RegexOptions.Multiline | RegexOptions.ExplicitCapture | RegexOptions.Singleline);
 
@@ -53,11 +54,12 @@ namespace GulliReplay
                         program,
                         m.Groups["vid"].Value,
                         WebUtility.HtmlDecode(m.Groups["title"].Value.Replace("\n", "").Trim()),
-                        m.Groups["img"].Value,
+                        GetImageUrl(m.Groups["filename"].Value),
                         byte.Parse(m.Groups["saison"].Value),
                         byte.Parse(m.Groups["episode"].Value)));
             }
 
+            result.Sort();
             return result;
         }
 
@@ -66,6 +68,11 @@ namespace GulliReplay
             int quality = 1500;
             string str = string.Format("http://gulli-replay-transmux.scdn.arkena.com/{0}/{0}_{1}.mp4", episode.Id, quality);
             return new Uri(str);
+        }
+
+        public string GetImageUrl(string image, int x = 540, int y = 405)
+        {
+            return "http://resize-gulli.ladmedia.fr/r/" + x.ToString() + "," + y.ToString() + ",smartcrop,center-top/img/var/storage/imports/" + image;
         }
     }
 }

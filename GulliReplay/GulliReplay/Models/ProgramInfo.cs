@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace GulliReplay
 {
-    public class ProgramInfo
+    public class ProgramInfo: IEquatable<ProgramInfo>, IComparable<ProgramInfo>
     {
         internal readonly ReplayDataSource DataSource;
         public string Id { get; private set; }
@@ -29,6 +29,16 @@ namespace GulliReplay
         public List<EpisodeInfo> GetEpisodeList()
         {
             return DataSource.GetEpisodeList(this);
+        }
+
+        public bool Equals(ProgramInfo other)
+        {
+            return Name == other.Name;
+        }
+
+        public int CompareTo(ProgramInfo other)
+        {
+            return Name.CompareTo(other.Name);
         }
     }
 }

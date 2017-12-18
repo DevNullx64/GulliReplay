@@ -16,7 +16,7 @@ namespace GulliReplay
 
         public ProgramsViewModel()
         {
-            Title = "Browse";
+            Title = "Choisis ta série";
             ProgramList = new ObservableCollection<ProgramInfo>();
             DataStore = new ProgramDataStore(GulliDataSource.Default);
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());

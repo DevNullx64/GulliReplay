@@ -1,12 +1,12 @@
 ﻿using Android.App;
 using Android.Views;
 using GulliReplay;
-using MyXamarinApp.Droid;
+using GulliReplay.Droid;
 using System;
 using Xamarin.Forms;
 
 [assembly: Xamarin.Forms.Dependency(typeof(StatusBarImplementation))]
-namespace MyXamarinApp.Droid
+namespace GulliReplay.Droid
 {
     public class StatusBarImplementation : IStatusBar
     {
