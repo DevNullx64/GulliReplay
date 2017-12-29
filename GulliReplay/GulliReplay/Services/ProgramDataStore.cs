@@ -9,10 +9,10 @@ namespace GulliReplay
 {
     public class ProgramDataStore : IDataStore<ProgramInfo>
     {
-        readonly ReplayDataSource DataSource;
+        readonly IReplayDataSource DataSource;
         List<ProgramInfo> programs = new List<ProgramInfo>();
 
-        public ProgramDataStore(ReplayDataSource dataSource)
+        public ProgramDataStore(IReplayDataSource dataSource)
         {
             DataSource = dataSource;
             programs = DataSource.GetProgramList();
@@ -20,16 +20,17 @@ namespace GulliReplay
 
         public async Task<bool> AddItemAsync(ProgramInfo item) => await Task.Run(() => false);
         public async Task<bool> UpdateItemAsync(ProgramInfo item) => await Task.Run(() => false);
-        public async Task<bool> DeleteItemAsync(string id) => await Task.Run(() => false);
+        public async Task<bool> DeleteItemAsync(string url) => await Task.Run(() => false);
 
-        public async Task<ProgramInfo> GetItemAsync(string id)
+        public async Task<ProgramInfo> GetItemAsync(string url)
         {
-            return await Task.FromResult(programs.FirstOrDefault(s => s.Id == id));
+            return await Task.FromResult(programs.FirstOrDefault(s => s.Url == url));
         }
 
         public async Task<IEnumerable<ProgramInfo>> GetItemsAsync(bool forceRefresh = false)
         {
             return await Task.FromResult(programs);
         }
+
     }
 }

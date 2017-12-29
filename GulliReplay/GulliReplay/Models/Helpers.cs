@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -9,6 +10,8 @@ namespace GulliReplay
 {
     public static class Helpers
     {
+        public const string updateString = " (en cours de mise à jour...)";
+
         private static AutoResetEvent GetResponseSyncEvent = new AutoResetEvent(false);
         private class GetResponseSyncObject
         {
@@ -46,10 +49,29 @@ namespace GulliReplay
         }
         public static string GetContent(this WebRequest request)
         {
-            using (StreamReader sr = new StreamReader(request.GetResponseSync().GetResponseStream()))
-            {
+            using (WebResponse response = request.GetResponseSync())
+            using (StreamReader sr = new StreamReader(response.GetResponseStream()))
                 return sr.ReadToEnd();
+        }
+
+        public static bool Download(Uri uri, string fileName)
+        {
+            if (!fileName.StartsWith(LocalFile.Root))
+                fileName = Path.Combine(LocalFile.Root, fileName);
+
+            try
+            {
+                WebRequest request = HttpWebRequest.Create(uri);
+                using (WebResponse response = request.GetResponseSync())
+                using (Stream content = response.GetResponseStream())
+                using (Stream file = File.Create(fileName))
+                    content.CopyTo(file);
+            } catch(Exception e)
+            {
+                Debug.Write(e.Message);
+                return false;
             }
+            return true;
         }
     }
 }

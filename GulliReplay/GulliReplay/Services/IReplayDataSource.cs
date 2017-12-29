@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GulliReplay
 {
-    public interface ReplayDataSource
+    public interface IReplayDataSource
     {
         List<ProgramInfo> GetProgramList();
         List<EpisodeInfo> GetEpisodeList(ProgramInfo program);

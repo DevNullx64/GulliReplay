@@ -21,10 +21,12 @@
                                    LineBreakMode="WordWrap" 
                                    Style="{DynamicResource ListItemTextStyle}" 
                                    FontSize="16" />
-                            <Label Text="{Binding SaisonEpisode}" 
-                                   LineBreakMode="WordWrap" 
-                                   Style="{DynamicResource ListItemTextStyle}" 
-                                   FontSize="12" />
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Saison:" LineBreakMode="WordWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="12" />
+                                <Label Text="{Binding Saison}" LineBreakMode="WordWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="12" />
+                                <Label Text="/ Episode:" LineBreakMode="WordWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="12" />
+                                <Label Text="{Binding Episode}" LineBreakMode="WordWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="12" />
+                            </StackLayout>
                             <Image x:Name="img" Source="{Binding ImageUrl}"/>
                         </StackLayout>
                     </ViewCell>

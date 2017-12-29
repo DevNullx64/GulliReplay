@@ -28,7 +28,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\EpisodeDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\LocalFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\IStatusBar.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\ReplayDataSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\IReplayDataSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PlayBackViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\PlayBack.xaml.cs">
       <DependentUpon>PlayBack.xaml</DependentUpon>

@@ -9,17 +9,34 @@ namespace GulliReplay
 {
     public class ProgramsViewModel : BaseViewModel
     {
+        private const string defaultTitle = "Choisis ta série";
         public readonly ProgramDataStore DataStore;
+        public readonly Task OnProgramUpdated;
 
         public ObservableCollection<ProgramInfo> ProgramList { get; set; }
         public Command LoadItemsCommand { get; set; }
 
         public ProgramsViewModel()
         {
-            Title = "Choisis ta série";
             ProgramList = new ObservableCollection<ProgramInfo>();
             DataStore = new ProgramDataStore(GulliDataSource.Default);
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            OnProgramUpdated = new Task(() =>
+            {
+                GulliDataSource.Default.ProgramUpdated.WaitOne();
+                LoadItemsCommand.Execute(null);
+                Title = defaultTitle;
+            });
+
+            if (!GulliDataSource.Default.ProgramUpdated.WaitOne(0))
+            {
+                Title = defaultTitle + Helpers.updateString;
+                OnProgramUpdated.Start();
+            }
+            else
+            {
+                Title = defaultTitle;
+            }
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -47,5 +64,6 @@ namespace GulliReplay
                 IsBusy = false;
             }
         }
+
     }
 }

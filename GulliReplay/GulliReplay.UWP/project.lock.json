@@ -2385,20 +2385,6 @@
           }
         }
       },
-      "Xam.Plugins.VideoPlayer/1.0.0-pre07": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Forms": "2.2.0.31"
-        },
-        "compile": {
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.UWP.dll": {},
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.dll": {}
-        },
-        "runtime": {
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.UWP.dll": {},
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.dll": {}
-        }
-      },
       "Xamarin.Forms/2.5.0.121934": {
         "type": "package",
         "compile": {
@@ -4886,20 +4872,6 @@
         },
         "runtime": {
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
-        }
-      },
-      "Xam.Plugins.VideoPlayer/1.0.0-pre07": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Forms": "2.2.0.31"
-        },
-        "compile": {
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.UWP.dll": {},
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.dll": {}
-        },
-        "runtime": {
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.UWP.dll": {},
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.dll": {}
         }
       },
       "Xamarin.Forms/2.5.0.121934": {
@@ -7427,20 +7399,6 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xam.Plugins.VideoPlayer/1.0.0-pre07": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Forms": "2.2.0.31"
-        },
-        "compile": {
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.UWP.dll": {},
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.dll": {}
-        },
-        "runtime": {
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.UWP.dll": {},
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.dll": {}
-        }
-      },
       "Xamarin.Forms/2.5.0.121934": {
         "type": "package",
         "compile": {
@@ -9937,20 +9895,6 @@
         },
         "runtime": {
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
-        }
-      },
-      "Xam.Plugins.VideoPlayer/1.0.0-pre07": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Forms": "2.2.0.31"
-        },
-        "compile": {
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.UWP.dll": {},
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.dll": {}
-        },
-        "runtime": {
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.UWP.dll": {},
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.dll": {}
         }
       },
       "Xamarin.Forms/2.5.0.121934": {
@@ -12487,20 +12431,6 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xam.Plugins.VideoPlayer/1.0.0-pre07": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Forms": "2.2.0.31"
-        },
-        "compile": {
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.UWP.dll": {},
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.dll": {}
-        },
-        "runtime": {
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.UWP.dll": {},
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.dll": {}
-        }
-      },
       "Xamarin.Forms/2.5.0.121934": {
         "type": "package",
         "compile": {
@@ -14997,20 +14927,6 @@
         },
         "runtime": {
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
-        }
-      },
-      "Xam.Plugins.VideoPlayer/1.0.0-pre07": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Forms": "2.2.0.31"
-        },
-        "compile": {
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.UWP.dll": {},
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.dll": {}
-        },
-        "runtime": {
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.UWP.dll": {},
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.dll": {}
         }
       },
       "Xamarin.Forms/2.5.0.121934": {
@@ -17545,20 +17461,6 @@
         },
         "runtime": {
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
-        }
-      },
-      "Xam.Plugins.VideoPlayer/1.0.0-pre07": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Forms": "2.2.0.31"
-        },
-        "compile": {
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.UWP.dll": {},
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.dll": {}
-        },
-        "runtime": {
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.UWP.dll": {},
-          "lib/.NETCore50/Xam.Plugins.VideoPlayer.dll": {}
         }
       },
       "Xamarin.Forms/2.5.0.121934": {
@@ -27394,27 +27296,6 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
-    "Xam.Plugins.VideoPlayer/1.0.0-pre07": {
-      "sha512": "aGiQfSDWjhCmiey2FNkCvjmk93n3Jl39MU9XN3fTCq6lXW1pqJYSXPUK6s98QxHyAY7AGRtM1WXlD8YSqHAtXQ==",
-      "type": "package",
-      "path": "xam.plugins.videoplayer/1.0.0-pre07",
-      "files": [
-        "content/Xam.Plugins.VideoPlayer.md",
-        "lib/.NETCore50/Xam.Plugins.VideoPlayer.UWP.dll",
-        "lib/.NETCore50/Xam.Plugins.VideoPlayer.dll",
-        "lib/monoandroid/Xam.Plugins.VideoPlayer.Droid.dll",
-        "lib/monoandroid/Xam.Plugins.VideoPlayer.dll",
-        "lib/portable-net45+win8+wpa81+wp8+monoandroid+xamarinios+monotouch+xamarinmac/Xam.Plugins.VideoPlayer.dll",
-        "lib/win81/Xam.Plugins.VideoPlayer.WinRT.dll",
-        "lib/win81/Xam.Plugins.VideoPlayer.dll",
-        "lib/wpa81/Xam.Plugins.VideoPlayer.WinRT.Phone.dll",
-        "lib/wpa81/Xam.Plugins.VideoPlayer.dll",
-        "lib/xamarinios/Xam.Plugins.VideoPlayer.IOS.dll",
-        "lib/xamarinios/Xam.Plugins.VideoPlayer.dll",
-        "xam.plugins.videoplayer.1.0.0-pre07.nupkg.sha512",
-        "xam.plugins.videoplayer.nuspec"
-      ]
-    },
     "Xamarin.Forms/2.5.0.121934": {
       "sha512": "H3Gh6nvximMk9i8LdfhPnARo+kEsh8hDXWRboiUPb1r22gkIGA8i8tbnRcSXJWk4fCW/kdMTom6SFN0L+NhItw==",
       "type": "package",
@@ -27602,7 +27483,6 @@
     "": [
       "Microsoft.NETCore.UniversalWindowsPlatform >= 6.0.5",
       "Rox.Xamarin.Video >= 2.1.0",
-      "Xam.Plugins.VideoPlayer >= 1.0.0-pre07",
       "Xamarin.Forms >= 2.5.0.121934",
       "sqlite-net-pcl >= 1.4.118"
     ],
@@ -27637,7 +27517,6 @@
     "dependencies": {
       "Microsoft.NETCore.UniversalWindowsPlatform": "[6.0.5, )",
       "Rox.Xamarin.Video": "[2.1.0, )",
-      "Xam.Plugins.VideoPlayer": "[1.0.0-pre07, )",
       "Xamarin.Forms": "[2.5.0.121934, )",
       "sqlite-net-pcl": "[1.4.118, )"
     },

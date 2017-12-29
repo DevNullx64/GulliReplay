@@ -1,34 +1,74 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace GulliReplay
 {
     public class ProgramInfo: IEquatable<ProgramInfo>, IComparable<ProgramInfo>
     {
-        internal readonly ReplayDataSource DataSource;
-        public string Id { get; private set; }
-        public string Type { get; private set; }
-        public string Name { get; private set; }
-        public string Url { get; private set; }
-        public string ImageUrl { get; private set; }
+        private object locker = new object();
+        public ManualResetEvent EpisodeUpdatedEvent = new ManualResetEvent(false);
 
-        public ProgramInfo(ReplayDataSource dataSource, string type, string name, string url, string imageUrl)
+        private object updateLocker = new object();
+        private bool _updated = false;
+        public bool Updated
         {
-            DataSource = dataSource;
-            Id = Guid.NewGuid().ToString();
+            get => _updated;
+            set
+            {
+                _updated = value;
+            }
+        }
+
+        private bool _updating = false;
+        public bool EnterUpdating()
+        {
+            lock (updateLocker)
+            {
+                if (!(_updating || _updated))
+                {
+                    _updating = true;
+                    return true;
+                }
+                return false;
+            }
+
+        }
+
+        public void LeaveUpdating(bool updated)
+        {
+            lock(updateLocker)
+            {
+                _updating = false;
+                Updated = updated;
+            }
+        }
+
+        [PrimaryKey]
+        public string Url { get; set; }
+        public string Type { get; set; }
+        public string Name { get; set; }
+        public string ImageUrl { get; set; }
+
+        public ProgramInfo() { }
+        public ProgramInfo(string url, string type, string name, string imageUrl)
+        {
+            Url = url;
             Type = type;
             Name = name;
-            Url = url;
             ImageUrl = imageUrl;
         }
 
+        private List<EpisodeInfo> episodes = null;
         public List<EpisodeInfo> GetEpisodeList()
         {
-            return DataSource.GetEpisodeList(this);
+            lock (locker)
+            {
+                if (episodes == null)
+                    episodes = GulliDataSource.Default.GetEpisodeList(this);
+            }
+            return episodes;
         }
 
         public bool Equals(ProgramInfo other)
@@ -38,7 +78,7 @@ namespace GulliReplay
 
         public int CompareTo(ProgramInfo other)
         {
-            return Name.CompareTo(other.Name);
+            return Url.CompareTo(other.Url);
         }
     }
 }

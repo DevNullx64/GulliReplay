@@ -5,12 +5,14 @@ using Xamarin.Forms;
 using GulliReplay;
 using GulliReplay.UWP;
 
-[assembly: Dependency(typeof(LocalFile))]
+[assembly: Dependency(typeof(GulliReplay.UWP.LocalFile))]
 namespace GulliReplay.UWP
 {
     // https://msdn.microsoft.com/en-us/library/windows/apps/xaml/hh758325.aspx
     public class LocalFile : ILocalFile
     {
+        public string Root => ApplicationData.Current.LocalFolder.ToString();
+
         public async Task SaveAsync(string filename, object obj)
         {
             if (obj is string)

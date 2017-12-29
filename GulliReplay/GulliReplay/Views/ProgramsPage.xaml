@@ -16,11 +16,11 @@
 		    <ListView.ItemTemplate>
 			    <DataTemplate>
 				    <ViewCell>
-					    <StackLayout>
+                        <StackLayout>
                             <Label Text="{Binding Name}" 
                                 LineBreakMode="WordWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16" />
+                                FontSize="16"/>
                             <Image x:Name="img" Source="{Binding ImageUrl}" />
                         </StackLayout>
 				    </ViewCell>

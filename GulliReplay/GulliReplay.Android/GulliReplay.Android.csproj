@@ -8,7 +8,7 @@
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <RootNamespace>GulliReplay.Droid</RootNamespace>
-    <AssemblyName>GulliReplay.Android</AssemblyName>
+    <AssemblyName>GulliReplay</AssemblyName>
     <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
@@ -44,22 +44,14 @@
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <BundleAssemblies>false</BundleAssemblies>
+    <EnableProguard>true</EnableProguard>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FormsViewGroup, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.5.0.121934\lib\MonoAndroid10\FormsViewGroup.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugin.MediaManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Plugin.MediaManager.0.4.5\lib\MonoAndroid\Plugin.MediaManager.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugin.MediaManager.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Plugin.MediaManager.0.4.5\lib\MonoAndroid\Plugin.MediaManager.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugin.MediaManager.Forms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Plugin.MediaManager.Forms.0.4.5\lib\MonoAndroid\Plugin.MediaManager.Forms.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugin.MediaManager.Forms.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Plugin.MediaManager.Forms.0.4.5\lib\MonoAndroid\Plugin.MediaManager.Forms.Android.dll</HintPath>
     </Reference>
     <Reference Include="Rox.Xamarin.Video.Android, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Rox.Xamarin.Video.2.1.0\lib\MonoAndroid10\Rox.Xamarin.Video.Android.dll</HintPath>

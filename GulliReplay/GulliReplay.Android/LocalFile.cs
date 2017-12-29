@@ -18,6 +18,17 @@ namespace GulliReplay.Droid
 {
     public class LocalFile : ILocalFile
     {
+        private string _root = "";
+        public string Root
+        {
+            get
+            {
+                if (_root == "")
+                    _root = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                return _root;
+            }
+        }
+
         public void Save(string FileName, Image image)
         {
             throw new NotImplementedException();
@@ -25,7 +36,7 @@ namespace GulliReplay.Droid
 
         public void Save(string FileName, string str)
         {
-            var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            var documentsPath = Root;
             var filePath = Path.Combine(documentsPath, FileName);
             File.WriteAllText(filePath, str);
         }
@@ -49,7 +60,7 @@ namespace GulliReplay.Droid
 
         public string LoadString(string FileName)
         {
-            var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            var documentsPath = Root;
             var filePath = Path.Combine(documentsPath, FileName);
             return File.ReadAllText(filePath);
         }

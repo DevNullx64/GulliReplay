@@ -3,76 +3,203 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Net;
+using System.Threading.Tasks;
+using System.IO;
+using SQLite;
+using System.Diagnostics;
+using System.Threading;
 
 namespace GulliReplay
 {
-    class GulliDataSource : ReplayDataSource
+    class GulliDataSource : IReplayDataSource
     {
         private static readonly Uri ProgramPage = new Uri("http://replay.gulli.fr/all");
+
+        private SQLiteConnection db;
         public static GulliDataSource Default = new GulliDataSource();
+
+        public ManualResetEvent ProgramUpdated = new ManualResetEvent(false);
+
+        public GulliDataSource()
+        {
+            var databasePath = Path.Combine(LocalFile.Root, "Gulli.db");
+            db = new SQLiteConnection(databasePath);
+
+            //db.DropTable<ProgramInfo>();
+            //db.DropTable<EpisodeInfo>();
+
+            db.CreateTable<ProgramInfo>();
+            db.CreateTable<EpisodeInfo>();
+        }
+
+        private object insertLocker = new object();
+        private object selectLocer = new object();
+        public int DbInsert(object item)
+        {
+            lock(insertLocker)
+                return db.Insert(item);
+        }
 
         public List<ProgramInfo> GetProgramList()
         {
-            //http://resize2-gulli.ladmedia.fr/r/180,135,smartcrop,center-top/img/var/storage/imports/replay/images_programme/robot_trains.jpg
-            Regex ProgramRegex =
-                new Regex(@"(<div\s+class=""wrap-img\s+program""\s*>" +
-                @"\s*<a\s+href=""(?<url>http://replay\.gulli\.fr/(?<type>[^/]+)/[^""]+)""\s*>" +
-                @"\s*<img\s+src=""(?<img>http://[a-z1-9]+-gulli\.ladmedia\.fr/r/[^""]+/img/var/storage/imports/(?<filename>[^""]+))""\s*alt=""(?<name>[^""]+)""\s*/>" +
-                @"\s*</a>\s*</div>)", RegexOptions.Multiline | RegexOptions.ExplicitCapture | RegexOptions.Singleline);
+            TableQuery<ProgramInfo> query;
+            lock (selectLocer)
+                query = db.Table<ProgramInfo>();
 
-            MatchCollection matches = ProgramRegex.Matches(ProgramPage.GetContent());
-            List<ProgramInfo> result = new List<ProgramInfo>(matches.Count);
-            for (int i = 0; i < matches.Count; i++)
+            if (query != null)
             {
-                Match m = matches[i];
-                string s = m.Value;
-                result.Add(
-                    new ProgramInfo(
-                        this,
-                        m.Groups["type"].Value,
-                        WebUtility.HtmlDecode(m.Groups["name"].Value),
-                        m.Groups["url"].Value,
-                        GetImageUrl(m.Groups["filename"].Value)));
+                List<ProgramInfo> result = (query.Count() > 0) ?
+                    new List<ProgramInfo>(query) :
+                    new List<ProgramInfo>();
+
+                new Task(() =>
+                {
+                    try
+                    {
+                        Regex ProgramRegex =
+                        new Regex(@"(<div\s+class=""wrap-img\s+program""\s*>" +
+                        @"\s*<a\s+href=""(?<url>http://replay\.gulli\.fr/(?<type>[^/]+)/[^""]+)""\s*>" +
+                        @"\s*<img\s+src=""(?<img>http://[a-z1-9]+-gulli\.ladmedia\.fr/r/[^""]+/img/var/storage/imports/(?<filename>[^""]+))""\s*alt=""(?<name>[^""]+)""\s*/>" +
+                        @"\s*</a>\s*</div>)", RegexOptions.Multiline | RegexOptions.ExplicitCapture | RegexOptions.Singleline);
+
+                        MatchCollection matches = ProgramRegex.Matches(ProgramPage.GetContent());
+                        for (int i = 0; i < matches.Count; i++)
+                        {
+                            Match m = matches[i];
+                            string s = m.Value;
+
+                            string url = m.Groups["url"].Value;
+                            var pgm = query.Where((p) => p.Url == url);
+                            ProgramInfo program;
+                            if (pgm.Count() == 0)
+                            {
+                                program = new ProgramInfo(
+                                        m.Groups["url"].Value,
+                                        m.Groups["type"].Value,
+                                        WebUtility.HtmlDecode(m.Groups["name"].Value),
+                                        GetImage(new Uri(GetImageUrl(m.Groups["filename"].Value))));
+                                DbInsert(program);
+                                result.Add(program);
+                            }
+                        }
+                        ProgramUpdated.Set();
+
+                        foreach (ProgramInfo p in result)
+                            GetEpisodeList(p, null);
+
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.Write(e.Message);
+                    }
+
+                }).Start();
+
+                return result;
             }
-            return result;
+            return new List<ProgramInfo>();
+        }
+
+        private void GetEpisodeList(ProgramInfo program, List<EpisodeInfo> result = null)
+        {
+            if (program.EnterUpdating())
+            {
+                try
+                {
+                    TableQuery<EpisodeInfo> query;
+                    lock (selectLocer)
+                        query = db.Table<EpisodeInfo>().Where((e) => e.ProgramUrl == program.Url);
+
+                    Regex EpisodeRegex = new Regex(
+                            @"<a href=""" + program.Url + @"/VOD(?<vid>\d+)""><img class=""img-responsive""\s+src=""(?<img>[^""]+/img/var/storage/imports/(?<filename>[^""]+))""/><span\s+class=""title"">" +
+                            @"<span>Saison (?<saison>\d+)\s*,\s*&Eacute;pisode\s*(?<episode>\d+)</span>(?<title>[^<]+)</span></a>",
+                            RegexOptions.Multiline | RegexOptions.ExplicitCapture | RegexOptions.Singleline);
+
+                    WebRequest request = HttpWebRequest.Create(program.Url);
+                    string content = request.GetContent();
+                    MatchCollection matches = EpisodeRegex.Matches(content);
+                    for (int i = 0; i < matches.Count; i++)
+                    {
+                        Match m = matches[i];
+
+                        string vid = m.Groups["vid"].Value;
+                        var epd = query.Where((e) => e.Id == vid);
+
+                        if (epd.Count() == 0)
+                        {
+                            EpisodeInfo episode = new EpisodeInfo(
+                                program,
+                                vid,
+                                WebUtility.HtmlDecode(m.Groups["title"].Value.Replace("\n", "").Trim()),
+                                GetImage(new Uri(GetImageUrl(m.Groups["filename"].Value))),
+                                byte.Parse(m.Groups["saison"].Value),
+                                byte.Parse(m.Groups["episode"].Value));
+
+                            DbInsert(episode);
+                            result?.Add(episode);
+                        }
+
+                    }
+
+                    Debug.Write(program.Name + ": Updated");
+                    program.LeaveUpdating(true);
+                }
+                catch (Exception e)
+                {
+                    Debug.Write(program.Name);
+                    Debug.Write(e.Message);
+                    program.LeaveUpdating(false);
+                }
+
+                result?.Sort();
+                program.EpisodeUpdatedEvent.Set();
+            }
         }
 
         public List<EpisodeInfo> GetEpisodeList(ProgramInfo program)
         {
-            Regex EpisodeRegex = new Regex(
-                    @"<a href=""" + program.Url + @"/VOD(?<vid>\d+)""><img class=""img-responsive""\s+src=""(?<img>[^""]+/img/var/storage/imports/(?<filename>[^""]+))""/><span\s+class=""title"">" +
-                    @"<span>Saison (?<saison>\d+)\s*,\s*&Eacute;pisode\s*(?<episode>\d+)</span>(?<title>[^<]+)</span></a>",
-                    RegexOptions.Multiline | RegexOptions.ExplicitCapture | RegexOptions.Singleline);
+            var query = db.Table<EpisodeInfo>().Where((e) => e.ProgramUrl == program.Url);
+            List<EpisodeInfo> result = new List<EpisodeInfo>(query);
 
-            MatchCollection matches = EpisodeRegex.Matches(HttpWebRequest.Create(program.Url).GetContent());
-            List<EpisodeInfo> result = new List<EpisodeInfo>(matches.Count);
-            for (int i = 0; i < matches.Count; i++)
-            {
-                Match m = matches[i];
-                result.Add(
-                    new EpisodeInfo(
-                        program,
-                        m.Groups["vid"].Value,
-                        WebUtility.HtmlDecode(m.Groups["title"].Value.Replace("\n", "").Trim()),
-                        GetImageUrl(m.Groups["filename"].Value),
-                        byte.Parse(m.Groups["saison"].Value),
-                        byte.Parse(m.Groups["episode"].Value)));
-            }
+            if (!program.Updated)
+                new Task(() => GetEpisodeList(program, result)).Start();
 
             result.Sort();
             return result;
         }
 
-        public Uri GetVideoStream(EpisodeInfo episode)
+        public enum GulliQuality
         {
-            int quality = 1500;
-            string str = string.Format("http://gulli-replay-transmux.scdn.arkena.com/{0}/{0}_{1}.mp4", episode.Id, quality);
-            return new Uri(str);
+            _200 = 200,
+            _350 = 350,
+            _750 = 750,
+            _900 = 900,
+            _1500 = 1500
         }
 
-        public string GetImageUrl(string image, int x = 540, int y = 405)
+        public Uri GetVideoStream(EpisodeInfo episode) => GetVideoStream(episode, GulliQuality._900);
+        public Uri GetVideoStream(EpisodeInfo episode, GulliQuality quality)
         {
-            return "http://resize-gulli.ladmedia.fr/r/" + x.ToString() + "," + y.ToString() + ",smartcrop,center-top/img/var/storage/imports/" + image;
+            int q = (int)quality;
+            string str = string.Format("http://gulli-replay-transmux.scdn.arkena.com/{0}/{0}_{1}.mp4", episode.Id, q);
+            return new Uri(str);
+        }
+        static int imgHeigth = App.DisplayScreenWidth >> 1;
+        static int imgWidth = (imgHeigth >> 2) * 3;
+
+        public string GetImageUrl(string image)
+        {
+            return "http://resize-gulli.ladmedia.fr/r/" + imgHeigth.ToString() + "," + imgWidth.ToString() + ",smartcrop,center-top/img/var/storage/imports/" + image;
+        }
+
+        public string GetImage(Uri uri)
+        {
+            string result = Path.Combine(LocalFile.Root, Path.GetFileName(uri.ToString()));
+            int retry = 3;
+            if (!File.Exists(result))
+                while (!Helpers.Download(uri, result) && (retry > 0))
+                    retry--;
+            return (retry > 0) ? result : uri.ToString();
         }
     }
 }

@@ -20,6 +20,10 @@ namespace GulliReplay.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
+            App.DisplayScreenWidth = Resources.DisplayMetrics.WidthPixels;
+            App.DisplayScreenHeight = Resources.DisplayMetrics.HeightPixels;
+            App.DisplayScaleFactor = (double)Resources.DisplayMetrics.Density;
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
