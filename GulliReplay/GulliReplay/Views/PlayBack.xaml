@@ -13,7 +13,7 @@
         <roxv:VideoView
             Grid.Column="0"
             Grid.Row="0"
-            x:Name="VideoView"
+            x:Name="VideoViewer"
             AutoPlay="True"
             FullScreen="True"
             LoopPlay="False"

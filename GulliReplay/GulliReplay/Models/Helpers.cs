@@ -5,11 +5,29 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading;
+using System.Collections.ObjectModel;
 
 namespace GulliReplay
 {
     public static class Helpers
     {
+        public static void SortedAdd<T>(this ObservableCollection<T> collection, T item) where T: IComparable<T> {
+            for (int i = 0; i < collection.Count; i++){
+                int cmp = collection[i].CompareTo(item);
+                if(cmp==0)
+                    break;
+                else if(cmp > 0) {
+                    collection.Insert(i, item);
+                    break;
+                }
+            }
+        }
+
+        public static void SortedAdd<T>(this ObservableCollection<T> collection, IEnumerable<T> items) where T: IComparable<T> {
+            foreach(T item in items)
+                SortedAdd(collection, item);
+        }
+
         public const string updateString = " (en cours de mise à jour...)";
 
         private static AutoResetEvent GetResponseSyncEvent = new AutoResetEvent(false);

@@ -11,24 +11,23 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ProgramsPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\EpisodesPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ImageResizer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ImageResizer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EpisodeInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Helpers.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\GulliDataSource.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\EpisodeDataStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\GulliDataSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\LocalFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\IStatusBar.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\IReplayDataSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\IReplayDataSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PlayBackViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\PlayBack.xaml.cs">
       <DependentUpon>PlayBack.xaml</DependentUpon>
@@ -40,8 +39,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\EpisodesPage.xaml.cs">
       <DependentUpon>EpisodesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Services\ProgramDataStore.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\IDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ProgramInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EpisodesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
@@ -50,7 +47,7 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PlayBack.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

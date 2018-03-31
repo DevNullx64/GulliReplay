@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Collections.ObjectModel;
 
 namespace GulliReplay
 {
@@ -10,23 +11,19 @@ namespace GulliReplay
         private object locker = new object();
         public ManualResetEvent EpisodeUpdatedEvent = new ManualResetEvent(false);
 
+        private ObservableCollection<EpisodeInfo> _Episode = new ObservableCollection<EpisodeInfo>();
+        [Ignore]
+        public ObservableCollection<EpisodeInfo> Episode { get => _Episode; set { } }
+
         private object updateLocker = new object();
-        private bool _updated = false;
-        public bool Updated
-        {
-            get => _updated;
-            set
-            {
-                _updated = value;
-            }
-        }
+        public bool Updated = false;
 
         private bool _updating = false;
         public bool EnterUpdating()
         {
             lock (updateLocker)
             {
-                if (!(_updating || _updated))
+                if (!(_updating || Updated))
                 {
                     _updating = true;
                     return true;

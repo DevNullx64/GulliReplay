@@ -11,13 +11,13 @@ namespace GulliReplay
         {
             NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
-            playBackViewModel= new PlayBackViewModel(VideoView, item);
+            playBackViewModel= new PlayBackViewModel(VideoViewer, item);
             BindingContext = playBackViewModel;
         }
 
         public VideoView GetVideoView()
         {
-            return VideoView;
+            return VideoViewer;
         }
 
         protected override void OnAppearing()
@@ -29,7 +29,7 @@ namespace GulliReplay
         {
             DependencyService.Get<IStatusBar>().ShowStatusBar();
             NavigationPage.SetHasNavigationBar(this, false);
-            VideoView.Stop();
+            VideoViewer.Stop();
             BindingContext = null;
             playBackViewModel = null;
             grid.Children.Clear();

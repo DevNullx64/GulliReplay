@@ -37,8 +37,8 @@ namespace GulliReplay.UWP
             // ######################################
 
             // Size of App's view
-            GulliReplay.App.DisplayScreenHeight = (int)ApplicationView.GetForCurrentView().VisibleBounds.Height;
-            GulliReplay.App.DisplayScreenWidth = (int)ApplicationView.GetForCurrentView().VisibleBounds.Width;
+            //GulliReplay.App.DisplayScreenHeight = (int)ApplicationView.GetForCurrentView().VisibleBounds.Height;
+            //GulliReplay.App.DisplayScreenWidth = (int)ApplicationView.GetForCurrentView().VisibleBounds.Width;
 
             // Size of screen's resolution
             //screensize.App.DisplayScreenWidth = DisplayInformation.GetForCurrentView().ScreenHeightInRawPixels;
@@ -47,7 +47,7 @@ namespace GulliReplay.UWP
             // Pixels per View Pixel
             // - https://msdn.microsoft.com/en-us/windows/uwp/layout/design-and-ui-intro#effective-pixels-and-scaling
             // - https://msdn.microsoft.com/en-us/windows/uwp/layout/screen-sizes-and-breakpoints-for-responsive-design
-            GulliReplay.App.DisplayScaleFactor = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
+            //GulliReplay.App.DisplayScaleFactor = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
 
             this.InitializeComponent();
             this.Suspending += OnSuspending;

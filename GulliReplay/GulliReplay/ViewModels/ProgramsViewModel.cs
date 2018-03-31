@@ -10,16 +10,13 @@ namespace GulliReplay
     public class ProgramsViewModel : BaseViewModel
     {
         private const string defaultTitle = "Choisis ta série";
-        public readonly ProgramDataStore DataStore;
         public readonly Task OnProgramUpdated;
 
-        public ObservableCollection<ProgramInfo> ProgramList { get; set; }
+        public ObservableCollection<ProgramInfo> ProgramList { get; set; } = new ObservableCollection<ProgramInfo>();
         public Command LoadItemsCommand { get; set; }
 
         public ProgramsViewModel()
         {
-            ProgramList = new ObservableCollection<ProgramInfo>();
-            DataStore = new ProgramDataStore(GulliDataSource.Default);
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             OnProgramUpdated = new Task(() =>
             {
@@ -39,7 +36,9 @@ namespace GulliReplay
             }
         }
 
+#pragma warning disable CS1998 // Cette méthode async n'a pas d'opérateur 'await' et elle s'exécutera de façon synchrone. Utilisez l'opérateur 'await' pour attendre les appels d'API non bloquants ou 'await Task.Run(…)' pour effectuer un travail utilisant le processeur sur un thread d'arrière-plan.
         async Task ExecuteLoadItemsCommand()
+#pragma warning restore CS1998 // Cette méthode async n'a pas d'opérateur 'await' et elle s'exécutera de façon synchrone. Utilisez l'opérateur 'await' pour attendre les appels d'API non bloquants ou 'await Task.Run(…)' pour effectuer un travail utilisant le processeur sur un thread d'arrière-plan.
         {
             if (IsBusy)
                 return;
@@ -48,12 +47,7 @@ namespace GulliReplay
 
             try
             {
-                ProgramList.Clear();
-                var items = await DataStore.GetItemsAsync(true);
-                foreach (var item in items)
-                {
-                    ProgramList.Add(item);
-                }
+                GulliDataSource.Default.GetProgramList(ProgramList, this);
             }
             catch (Exception ex)
             {

@@ -8,10 +8,11 @@ using System.IO;
 using SQLite;
 using System.Diagnostics;
 using System.Threading;
+using System.Collections.ObjectModel;
 
 namespace GulliReplay
 {
-    class GulliDataSource : IReplayDataSource
+    public class GulliDataSource : IReplayDataSource
     {
         private static readonly Uri ProgramPage = new Uri("http://replay.gulli.fr/all");
 
@@ -22,14 +23,17 @@ namespace GulliReplay
 
         public GulliDataSource()
         {
-            var databasePath = Path.Combine(LocalFile.Root, "Gulli.db");
-            db = new SQLiteConnection(databasePath);
+            try
+            {
+                var databasePath = Path.Combine(LocalFile.Root, "Gulli.db");
+                db = new SQLiteConnection(databasePath);
+                db.CreateTable<ProgramInfo>();
+                db.CreateTable<EpisodeInfo>();
+            }
+            catch (Exception e)
+            {
 
-            //db.DropTable<ProgramInfo>();
-            //db.DropTable<EpisodeInfo>();
-
-            db.CreateTable<ProgramInfo>();
-            db.CreateTable<EpisodeInfo>();
+            }
         }
 
         private object insertLocker = new object();
@@ -40,17 +44,24 @@ namespace GulliReplay
                 return db.Insert(item);
         }
 
-        public List<ProgramInfo> GetProgramList()
+        private bool PogrameUpdating = false;
+        private object ProgramLock = new object();
+
+        public void GetProgramList(ObservableCollection<ProgramInfo> programs, BaseViewModel model)
         {
+            lock(ProgramLock){
+                if (PogrameUpdating) return;
+                PogrameUpdating = true;
+            }
+
+            model.IsBusy = true;
             TableQuery<ProgramInfo> query;
             lock (selectLocer)
                 query = db.Table<ProgramInfo>();
 
             if (query != null)
             {
-                List<ProgramInfo> result = (query.Count() > 0) ?
-                    new List<ProgramInfo>(query) :
-                    new List<ProgramInfo>();
+                programs.SortedAdd(query);
 
                 new Task(() =>
                 {
@@ -79,12 +90,12 @@ namespace GulliReplay
                                         WebUtility.HtmlDecode(m.Groups["name"].Value),
                                         GetImage(new Uri(GetImageUrl(m.Groups["filename"].Value))));
                                 DbInsert(program);
-                                result.Add(program);
+                                programs.Add(program);
                             }
                         }
                         ProgramUpdated.Set();
 
-                        foreach (ProgramInfo p in result)
+                        foreach (ProgramInfo p in programs)
                             GetEpisodeList(p, null);
 
                     }
@@ -94,10 +105,7 @@ namespace GulliReplay
                     }
 
                 }).Start();
-
-                return result;
             }
-            return new List<ProgramInfo>();
         }
 
         private void GetEpisodeList(ProgramInfo program, List<EpisodeInfo> result = null)
@@ -200,6 +208,11 @@ namespace GulliReplay
                 while (!Helpers.Download(uri, result) && (retry > 0))
                     retry--;
             return (retry > 0) ? result : uri.ToString();
+        }
+
+        public List<ProgramInfo> GetProgramList()
+        {
+            throw new NotImplementedException();
         }
     }
 }
