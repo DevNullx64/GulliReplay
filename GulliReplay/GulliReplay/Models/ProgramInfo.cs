@@ -6,14 +6,11 @@ using System.Collections.ObjectModel;
 
 namespace GulliReplay
 {
-    public class ProgramInfo: IEquatable<ProgramInfo>, IComparable<ProgramInfo>
+    public class ProgramInfo : IEquatable<ProgramInfo>, IComparable<ProgramInfo>
     {
-        private object locker = new object();
-        public ManualResetEvent EpisodeUpdatedEvent = new ManualResetEvent(false);
 
-        private ObservableCollection<EpisodeInfo> _Episode = new ObservableCollection<EpisodeInfo>();
         [Ignore]
-        public ObservableCollection<EpisodeInfo> Episode { get => _Episode; set { } }
+        public ObservableCollection<EpisodeInfo> episodes { get; set; } = new ObservableCollection<EpisodeInfo>();
 
         private object updateLocker = new object();
         public bool Updated = false;
@@ -35,7 +32,7 @@ namespace GulliReplay
 
         public void LeaveUpdating(bool updated)
         {
-            lock(updateLocker)
+            lock (updateLocker)
             {
                 _updating = false;
                 Updated = updated;
@@ -57,15 +54,9 @@ namespace GulliReplay
             ImageUrl = imageUrl;
         }
 
-        private List<EpisodeInfo> episodes = null;
-        public List<EpisodeInfo> GetEpisodeList()
+        public void GetEpisodeList()
         {
-            lock (locker)
-            {
-                if (episodes == null)
-                    episodes = GulliDataSource.Default.GetEpisodeList(this);
-            }
-            return episodes;
+            GulliDataSource.Default.GetEpisodeListSync(this);
         }
 
         public bool Equals(ProgramInfo other)
@@ -75,7 +66,10 @@ namespace GulliReplay
 
         public int CompareTo(ProgramInfo other)
         {
-            return Url.CompareTo(other.Url);
+            int result = Name.CompareTo(other.Name);
+            if (result == 0)
+                result = Url.CompareTo(other.Url);
+            return result;
         }
     }
 }

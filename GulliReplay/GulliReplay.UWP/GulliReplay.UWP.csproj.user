@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Source>D:\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay\Asset\Gulli_logo_2017.png</Source>
-    <SmallTileSource>D:\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay\Asset\Gulli_logo_2017.png</SmallTileSource>
-    <MediumTileSource>D:\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay\Asset\Gulli_logo_2017.png</MediumTileSource>
-    <WideTileSource>D:\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay\Asset\Gulli_logo_2017.png</WideTileSource>
-    <LargeTileSource>D:\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay\Asset\Gulli_logo_2017.png</LargeTileSource>
-    <AppIconSource>D:\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay\Asset\Gulli_logo_2017.png</AppIconSource>
-    <SplashScreenSource>D:\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay\Asset\Gulli_logo_2017.png</SplashScreenSource>
-    <PackageLogoSource>D:\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay\Asset\Gulli_logo_2017.png</PackageLogoSource>
+    <Source>D:\Users\Luc\Source\Repos\GulliReplay\Gulli_logo_2017.png</Source>
+    <SmallTileSource>D:\Users\Luc\Source\Repos\GulliReplay\Gulli_logo_2017.png</SmallTileSource>
+    <MediumTileSource>D:\Users\Luc\Source\Repos\GulliReplay\Gulli_logo_2017.png</MediumTileSource>
+    <WideTileSource>D:\Users\Luc\Source\Repos\GulliReplay\Gulli_logo_2017.png</WideTileSource>
+    <LargeTileSource>D:\Users\Luc\Source\Repos\GulliReplay\Gulli_logo_2017.png</LargeTileSource>
+    <AppIconSource>D:\Users\Luc\Source\Repos\GulliReplay\Gulli_logo_2017.png</AppIconSource>
+    <SplashScreenSource>D:\Users\Luc\Source\Repos\GulliReplay\Gulli_logo_2017.png</SplashScreenSource>
+    <PackageLogoSource>D:\Users\Luc\Source\Repos\GulliReplay\Gulli_logo_2017.png</PackageLogoSource>
+    <BadgeLogoSource>D:\Users\Luc\Source\Repos\GulliReplay\Gulli_logo_2017.png</BadgeLogoSource>
   </PropertyGroup>
 </Project>

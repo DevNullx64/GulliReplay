@@ -19,21 +19,12 @@ namespace GulliReplay
         private SQLiteConnection db;
         public static GulliDataSource Default = new GulliDataSource();
 
-        public ManualResetEvent ProgramUpdated = new ManualResetEvent(false);
-
         public GulliDataSource()
         {
-            try
-            {
-                var databasePath = Path.Combine(LocalFile.Root, "Gulli.db");
-                db = new SQLiteConnection(databasePath);
-                db.CreateTable<ProgramInfo>();
-                db.CreateTable<EpisodeInfo>();
-            }
-            catch (Exception e)
-            {
-
-            }
+            var databasePath = Path.Combine(LocalFile.Root, "Gulli.db");
+            db = new SQLiteConnection(databasePath);
+            db.CreateTable<ProgramInfo>();
+            db.CreateTable<EpisodeInfo>();
         }
 
         private object insertLocker = new object();
@@ -47,68 +38,72 @@ namespace GulliReplay
         private bool PogrameUpdating = false;
         private object ProgramLock = new object();
 
-        public void GetProgramList(ObservableCollection<ProgramInfo> programs, BaseViewModel model)
+        public async Task<Exception> GetProgramList(ObservableCollection<ProgramInfo> programs)
         {
-            lock(ProgramLock){
-                if (PogrameUpdating) return;
-                PogrameUpdating = true;
-            }
-
-            model.IsBusy = true;
-            TableQuery<ProgramInfo> query;
-            lock (selectLocer)
-                query = db.Table<ProgramInfo>();
-
-            if (query != null)
+            Exception result = null;
+            await Task.Run(() =>
             {
-                programs.SortedAdd(query);
-
-                new Task(() =>
+                try
                 {
-                    try
+                    lock (ProgramLock)
                     {
-                        Regex ProgramRegex =
-                        new Regex(@"(<div\s+class=""wrap-img\s+program""\s*>" +
-                        @"\s*<a\s+href=""(?<url>http://replay\.gulli\.fr/(?<type>[^/]+)/[^""]+)""\s*>" +
-                        @"\s*<img\s+src=""(?<img>http://[a-z1-9]+-gulli\.ladmedia\.fr/r/[^""]+/img/var/storage/imports/(?<filename>[^""]+))""\s*alt=""(?<name>[^""]+)""\s*/>" +
-                        @"\s*</a>\s*</div>)", RegexOptions.Multiline | RegexOptions.ExplicitCapture | RegexOptions.Singleline);
+                        if (PogrameUpdating) return;
+                        PogrameUpdating = true;
+                    }
 
-                        MatchCollection matches = ProgramRegex.Matches(ProgramPage.GetContent());
-                        for (int i = 0; i < matches.Count; i++)
+                    TableQuery<ProgramInfo> query = null;
+                    lock (selectLocer)
+                        query = db.Table<ProgramInfo>();
+
+                    if (query != null)
+                        programs.SortedAdd(query);
+
+                    Regex ProgramRegex =
+                    new Regex(@"(<div\s+class=""wrap-img\s+program""\s*>" +
+                    @"\s*<a\s+href=""(?<url>http://replay\.gulli\.fr/(?<type>[^/]+)/[^""]+)""\s*>" +
+                    @"\s*<img\s+src=""(?<img>http://[a-z1-9]+-gulli\.ladmedia\.fr/r/[^""]+/img/var/storage/imports/(?<filename>[^""]+))""\s*alt=""(?<name>[^""]+)""\s*/>" +
+                    @"\s*</a>\s*</div>)", RegexOptions.Multiline | RegexOptions.ExplicitCapture | RegexOptions.Singleline);
+
+                    MatchCollection matches = ProgramRegex.Matches(ProgramPage.GetContent());
+                    for (int i = 0; i < matches.Count; i++)
+                    {
+                        Match m = matches[i];
+                        string s = m.Value;
+
+                        string url = m.Groups["url"].Value;
+                        var pgm = query.Where((p) => p.Url == url);
+                        ProgramInfo program;
+                        if (pgm.Count() == 0)
                         {
-                            Match m = matches[i];
-                            string s = m.Value;
-
-                            string url = m.Groups["url"].Value;
-                            var pgm = query.Where((p) => p.Url == url);
-                            ProgramInfo program;
-                            if (pgm.Count() == 0)
-                            {
-                                program = new ProgramInfo(
-                                        m.Groups["url"].Value,
-                                        m.Groups["type"].Value,
-                                        WebUtility.HtmlDecode(m.Groups["name"].Value),
-                                        GetImage(new Uri(GetImageUrl(m.Groups["filename"].Value))));
-                                DbInsert(program);
-                                programs.Add(program);
-                            }
+                            program = new ProgramInfo(
+                                    m.Groups["url"].Value,
+                                    m.Groups["type"].Value,
+                                    WebUtility.HtmlDecode(m.Groups["name"].Value),
+                                    GetImage(new Uri(GetImageUrl(m.Groups["filename"].Value))));
+                            DbInsert(program);
+                            programs.SortedAdd(program);
                         }
-                        ProgramUpdated.Set();
-
-                        foreach (ProgramInfo p in programs)
-                            GetEpisodeList(p, null);
-
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.Write(e.Message);
                     }
 
-                }).Start();
-            }
+                    Task.Run(() =>
+                        {
+                            foreach (ProgramInfo p in programs)
+                                GetEpisodeListSync(p);
+                        }
+                    );
+
+                }
+                catch (Exception e)
+                {
+                    Debug.Write(e.Message);
+                    result = e;
+                }
+                finally { PogrameUpdating = false; }
+            });
+            return result;
         }
 
-        private void GetEpisodeList(ProgramInfo program, List<EpisodeInfo> result = null)
+        public Exception GetEpisodeListSync(ProgramInfo program)
         {
             if (program.EnterUpdating())
             {
@@ -133,9 +128,10 @@ namespace GulliReplay
                         string vid = m.Groups["vid"].Value;
                         var epd = query.Where((e) => e.Id == vid);
 
+                        EpisodeInfo episode;
                         if (epd.Count() == 0)
                         {
-                            EpisodeInfo episode = new EpisodeInfo(
+                            episode = new EpisodeInfo(
                                 program,
                                 vid,
                                 WebUtility.HtmlDecode(m.Groups["title"].Value.Replace("\n", "").Trim()),
@@ -144,9 +140,12 @@ namespace GulliReplay
                                 byte.Parse(m.Groups["episode"].Value));
 
                             DbInsert(episode);
-                            result?.Add(episode);
                         }
-
+                        else
+                        {
+                            episode = epd.First();
+                        }
+                        program.episodes.SortedAdd(episode);
                     }
 
                     Debug.Write(program.Name + ": Updated");
@@ -157,22 +156,16 @@ namespace GulliReplay
                     Debug.Write(program.Name);
                     Debug.Write(e.Message);
                     program.LeaveUpdating(false);
+                    return e;
                 }
-
-                result?.Sort();
-                program.EpisodeUpdatedEvent.Set();
             }
+            return null;
         }
 
-        public List<EpisodeInfo> GetEpisodeList(ProgramInfo program)
+        public async Task<Exception> GetEpisodeList(ProgramInfo program)
         {
-            var query = db.Table<EpisodeInfo>().Where((e) => e.ProgramUrl == program.Url);
-            List<EpisodeInfo> result = new List<EpisodeInfo>(query);
-
-            if (!program.Updated)
-                new Task(() => GetEpisodeList(program, result)).Start();
-
-            result.Sort();
+            Exception result = null;
+            await Task.Run(() => { result = GetEpisodeListSync(program); });
             return result;
         }
 
