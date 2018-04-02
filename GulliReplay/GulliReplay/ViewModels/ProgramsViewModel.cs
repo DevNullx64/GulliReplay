@@ -14,10 +14,12 @@ namespace GulliReplay
 
         public ObservableCollection<ProgramInfo> ProgramList { get; set; } = new ObservableCollection<ProgramInfo>();
         public Command LoadItemsCommand { get; set; }
+        private ProgressBar Progress;
 
-        public ProgramsViewModel()
+        public ProgramsViewModel(ProgressBar progress)
         {
             Title = defaultTitle + Helpers.updateString;
+            Progress = progress;
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
         }
 
@@ -30,11 +32,13 @@ namespace GulliReplay
 
             try
             {
-                Exception e = await GulliDataSource.Default.GetProgramList(ProgramList);
+                Progress.IsVisible = true;
+                Exception e = await GulliDataSource.Default.GetProgramList(ProgramList, Progress);
                 if (e != null)
                     Title = defaultTitle + "(Update error)";
                 else
                     Title = defaultTitle + "(" + ProgramList.Count.ToString() + ")";
+                Progress.IsVisible = false;
             }
             catch (Exception ex)
             {

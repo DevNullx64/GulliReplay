@@ -9,6 +9,7 @@ using SQLite;
 using System.Diagnostics;
 using System.Threading;
 using System.Collections.ObjectModel;
+using Xamarin.Forms;
 
 namespace GulliReplay
 {
@@ -38,7 +39,7 @@ namespace GulliReplay
         private bool PogrameUpdating = false;
         private object ProgramLock = new object();
 
-        public async Task<Exception> GetProgramList(ObservableCollection<ProgramInfo> programs)
+        public async Task<Exception> GetProgramList(ObservableCollection<ProgramInfo> programs, ProgressBar progress)
         {
             Exception result = null;
             await Task.Run(() =>
@@ -47,8 +48,16 @@ namespace GulliReplay
                 {
                     lock (ProgramLock)
                     {
-                        if (PogrameUpdating) return;
-                        PogrameUpdating = true;
+                        if (PogrameUpdating)
+                        {
+                            progress.Progress = 1;
+                            return;
+                        }
+                        else
+                        {
+                            progress.Progress = 0;
+                            PogrameUpdating = true;
+                        }
                     }
 
                     TableQuery<ProgramInfo> query = null;
@@ -67,6 +76,8 @@ namespace GulliReplay
                     MatchCollection matches = ProgramRegex.Matches(ProgramPage.GetContent());
                     for (int i = 0; i < matches.Count; i++)
                     {
+                        progress.Progress = (double)i / matches.Count;
+
                         Match m = matches[i];
                         string s = m.Value;
 
@@ -84,6 +95,7 @@ namespace GulliReplay
                             programs.SortedAdd(program);
                         }
                     }
+                    progress.Progress = 1;
 
                     Task.Run(() =>
                         {
@@ -109,6 +121,8 @@ namespace GulliReplay
             {
                 try
                 {
+                    program.Progress = 0;
+
                     TableQuery<EpisodeInfo> query;
                     lock (selectLocer)
                         query = db.Table<EpisodeInfo>().Where((e) => e.ProgramUrl == program.Url);
@@ -123,6 +137,7 @@ namespace GulliReplay
                     MatchCollection matches = EpisodeRegex.Matches(content);
                     for (int i = 0; i < matches.Count; i++)
                     {
+                        program.Progress = (double)i / matches.Count;
                         Match m = matches[i];
 
                         string vid = m.Groups["vid"].Value;
@@ -145,8 +160,10 @@ namespace GulliReplay
                         {
                             episode = epd.First();
                         }
-                        program.episodes.SortedAdd(episode);
+                        program.Episodes.SortedAdd(episode);
                     }
+
+                    program.Progress = 1;
 
                     Debug.Write(program.Name + ": Updated");
                     program.LeaveUpdating(true);

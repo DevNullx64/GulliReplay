@@ -22,7 +22,7 @@ namespace GulliReplay
                 EpisodeList = new ObservableCollection<EpisodeInfo>();
             else
             {
-                EpisodeList = program.episodes;
+                EpisodeList = program.Episodes;
                 Title = Program.Name;
             }
         }

@@ -13,7 +13,7 @@ namespace GulliReplay
         public ProgramPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = new ProgramsViewModel();
+            BindingContext = viewModel = new ProgramsViewModel(Progressbar);
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
@@ -31,7 +31,6 @@ namespace GulliReplay
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
             if (viewModel.ProgramList.Count == 0)
                 viewModel.LoadItemsCommand.Execute(null);
         }

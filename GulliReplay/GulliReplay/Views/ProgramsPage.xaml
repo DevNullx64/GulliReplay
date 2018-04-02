@@ -4,6 +4,7 @@
              x:Class="GulliReplay.ProgramPage"
              Title="{Binding Title}">
     <StackLayout>
+        <ProgressBar x:Name="Progressbar" IsVisible="False" />
         <ListView x:Name="ItemsListView" 
             ItemsSource="{Binding ProgramList}"
             VerticalOptions="FillAndExpand"
@@ -21,6 +22,7 @@
                                 LineBreakMode="WordWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 
                                 FontSize="16"/>
+                            <ProgressBar Progress="{Binding Progress}" IsVisible="{Binding IsUpdating}" />
                             <Image x:Name="img" Source="{Binding ImageUrl}" />
                         </StackLayout>
 				    </ViewCell>
