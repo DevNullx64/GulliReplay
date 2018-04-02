@@ -136,6 +136,7 @@ namespace GulliReplay
                         query = db.Table<EpisodeInfo>().Where((e) => urls.Contains(e.ProgramUrl));
                     }
 
+                    double progress = 0.0;
                     foreach (ProgramInfo pgm in programs)
                     {
                         Regex EpisodeRegex = new Regex(
@@ -148,7 +149,8 @@ namespace GulliReplay
                         MatchCollection matches = EpisodeRegex.Matches(content);
                         for (int i = 0; i < matches.Count; i++)
                         {
-                            onProgress?.Invoke((double)i / matches.Count);
+                            progress += 1.0 / matches.Count;
+                            onProgress?.Invoke(progress / programs.Count());
                             Match m = matches[i];
 
                             string vid = m.Groups["vid"].Value;
