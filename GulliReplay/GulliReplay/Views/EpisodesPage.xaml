@@ -4,6 +4,14 @@
              x:Class="GulliReplay.EpisodesPage"
              Title="{Binding Title}">
     <StackLayout>
+        <Grid IsVisible="{Binding IsBusy}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0">Mise à jour... </Label>
+            <ProgressBar Grid.Column="1" Progress="{Binding Progress}" />
+        </Grid>
         <ListView x:Name="ItemsListView" 
                 ItemsSource="{Binding EpisodeList}"
                 VerticalOptions="FillAndExpand"

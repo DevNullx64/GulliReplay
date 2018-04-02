@@ -6,14 +6,14 @@ namespace GulliReplay
 {
     public partial class EpisodesPage : ContentPage
     {
-        EpisodesViewModel viewModel;
+        EpisodesViewModel ViewModel;
 
         public EpisodesPage(EpisodesViewModel viewModel = null)
         {
             InitializeComponent();
             if (viewModel == null)
                 viewModel = new EpisodesViewModel();
-            BindingContext = this.viewModel = viewModel;
+            BindingContext = ViewModel = viewModel;
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
@@ -32,8 +32,8 @@ namespace GulliReplay
         {
             base.OnAppearing();
 
-            if (viewModel.EpisodeList.Count == 0)
-                viewModel.LoadEpisodeCommand.Execute(null);
+            if (ViewModel.EpisodeList.Count == 0)
+                ViewModel.LoadEpisodeCommand.Execute(null);
         }
     }
 }

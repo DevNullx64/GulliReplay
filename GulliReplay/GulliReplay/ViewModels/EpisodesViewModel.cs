@@ -12,6 +12,13 @@ namespace GulliReplay
         private ProgramInfo Program;
 
         public ObservableCollection<EpisodeInfo> EpisodeList { get; set; }
+        double progress = 0;
+        public double Progress
+        {
+            get { return progress; }
+            set { SetProperty(ref progress, value); }
+        }
+
         public Command LoadEpisodeCommand { get; set; }
 
         public EpisodesViewModel(ProgramInfo program = null)
@@ -36,7 +43,7 @@ namespace GulliReplay
 
             try
             {
-                await GulliDataSource.Default.GetEpisodeList(Program);
+                await GulliDataSource.Default.GetEpisodeList(Program, (p) => Progress = p);
             }
             catch (Exception ex)
             {

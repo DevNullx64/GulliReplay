@@ -13,7 +13,7 @@ namespace GulliReplay
         public ProgramPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = new ProgramsViewModel(Progressbar);
+            BindingContext = viewModel = new ProgramsViewModel();
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)

@@ -29,142 +29,151 @@ namespace GulliReplay
         }
 
         private object insertLocker = new object();
-        private object selectLocer = new object();
+        private object selectLocker = new object();
         public int DbInsert(object item)
         {
-            lock(insertLocker)
+            lock (insertLocker)
                 return db.Insert(item);
         }
 
         private bool PogrameUpdating = false;
         private object ProgramLock = new object();
 
-        public async Task<Exception> GetProgramList(ObservableCollection<ProgramInfo> programs, ProgressBar progress)
+        public Exception GetProgramListSync(ObservableCollection<ProgramInfo> programs, Action<double> onProgress = null)
+        {
+            try
+            {
+                lock (ProgramLock)
+                {
+                    if (PogrameUpdating)
+                    {
+                        onProgress?.Invoke(1);
+                        return null;
+                    }
+                    else
+                    {
+                        onProgress?.Invoke(0);
+                        PogrameUpdating = true;
+                    }
+                }
+
+                TableQuery<ProgramInfo> query = null;
+                lock (selectLocker)
+                    query = db.Table<ProgramInfo>();
+
+                if (query != null)
+                    programs.SortedAdd(query);
+
+                Regex ProgramRegex =
+                new Regex(@"(<div\s+class=""wrap-img\s+program""\s*>" +
+                @"\s*<a\s+href=""(?<url>http://replay\.gulli\.fr/(?<type>[^/]+)/[^""]+)""\s*>" +
+                @"\s*<img\s+src=""(?<img>http://[a-z1-9]+-gulli\.ladmedia\.fr/r/[^""]+/img/var/storage/imports/(?<filename>[^""]+))""\s*alt=""(?<name>[^""]+)""\s*/>" +
+                @"\s*</a>\s*</div>)", RegexOptions.Multiline | RegexOptions.ExplicitCapture | RegexOptions.Singleline);
+
+                MatchCollection matches = ProgramRegex.Matches(ProgramPage.GetContent());
+                for (int i = 0; i < matches.Count; i++)
+                {
+                    onProgress?.Invoke((double)i / matches.Count);
+
+                    Match m = matches[i];
+                    string s = m.Value;
+
+                    string url = m.Groups["url"].Value;
+                    var pgm = query.Where((p) => p.Url == url);
+                    ProgramInfo program;
+                    if (pgm.Count() == 0)
+                    {
+                        program = new ProgramInfo(
+                                m.Groups["url"].Value,
+                                m.Groups["type"].Value,
+                                WebUtility.HtmlDecode(m.Groups["name"].Value),
+                                GetImage(new Uri(GetImageUrl(m.Groups["filename"].Value))));
+                        DbInsert(program);
+                        programs.SortedAdd(program);
+                    }
+                }
+
+                Task.Run(() =>
+                    {
+                        foreach (ProgramInfo program in programs)
+                            GetEpisodeListSync(program, (p) => program.Progress = p);
+                    }
+                );
+
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.Message);
+                return e;
+            }
+            finally { PogrameUpdating = false; }
+
+            return null;
+        }
+        public async Task<Exception> GetProgramList(ObservableCollection<ProgramInfo> programs, Action<double> onProgress = null)
         {
             Exception result = null;
-            await Task.Run(() =>
-            {
-                try
-                {
-                    lock (ProgramLock)
-                    {
-                        if (PogrameUpdating)
-                        {
-                            progress.Progress = 1;
-                            return;
-                        }
-                        else
-                        {
-                            progress.Progress = 0;
-                            PogrameUpdating = true;
-                        }
-                    }
-
-                    TableQuery<ProgramInfo> query = null;
-                    lock (selectLocer)
-                        query = db.Table<ProgramInfo>();
-
-                    if (query != null)
-                        programs.SortedAdd(query);
-
-                    Regex ProgramRegex =
-                    new Regex(@"(<div\s+class=""wrap-img\s+program""\s*>" +
-                    @"\s*<a\s+href=""(?<url>http://replay\.gulli\.fr/(?<type>[^/]+)/[^""]+)""\s*>" +
-                    @"\s*<img\s+src=""(?<img>http://[a-z1-9]+-gulli\.ladmedia\.fr/r/[^""]+/img/var/storage/imports/(?<filename>[^""]+))""\s*alt=""(?<name>[^""]+)""\s*/>" +
-                    @"\s*</a>\s*</div>)", RegexOptions.Multiline | RegexOptions.ExplicitCapture | RegexOptions.Singleline);
-
-                    MatchCollection matches = ProgramRegex.Matches(ProgramPage.GetContent());
-                    for (int i = 0; i < matches.Count; i++)
-                    {
-                        progress.Progress = (double)i / matches.Count;
-
-                        Match m = matches[i];
-                        string s = m.Value;
-
-                        string url = m.Groups["url"].Value;
-                        var pgm = query.Where((p) => p.Url == url);
-                        ProgramInfo program;
-                        if (pgm.Count() == 0)
-                        {
-                            program = new ProgramInfo(
-                                    m.Groups["url"].Value,
-                                    m.Groups["type"].Value,
-                                    WebUtility.HtmlDecode(m.Groups["name"].Value),
-                                    GetImage(new Uri(GetImageUrl(m.Groups["filename"].Value))));
-                            DbInsert(program);
-                            programs.SortedAdd(program);
-                        }
-                    }
-                    progress.Progress = 1;
-
-                    Task.Run(() =>
-                        {
-                            foreach (ProgramInfo p in programs)
-                                GetEpisodeListSync(p);
-                        }
-                    );
-
-                }
-                catch (Exception e)
-                {
-                    Debug.Write(e.Message);
-                    result = e;
-                }
-                finally { PogrameUpdating = false; }
-            });
+            await Task.Run(() => result = GetProgramListSync(programs, onProgress));
             return result;
         }
 
-        public Exception GetEpisodeListSync(ProgramInfo program)
+        public Exception GetEpisodeListSync(ProgramInfo program, Action<double> onProgress = null)
         {
             if (program.EnterUpdating())
             {
                 try
                 {
-                    program.Progress = 0;
+                    onProgress?.Invoke(0);
 
                     TableQuery<EpisodeInfo> query;
-                    lock (selectLocer)
-                        query = db.Table<EpisodeInfo>().Where((e) => e.ProgramUrl == program.Url);
+                    TableQuery<ProgramInfo> programs;
+                    lock (selectLocker)
+                    {
+                        programs = db.Table<ProgramInfo>().Where((e) => e.Name == program.Name);
+                        List<string> urls = new List<string>();
+                        foreach (ProgramInfo pgm in programs)
+                            urls.Add(pgm.Url);
+                        query = db.Table<EpisodeInfo>().Where((e) => urls.Contains(e.ProgramUrl));
+                    }
 
-                    Regex EpisodeRegex = new Regex(
-                            @"<a href=""" + program.Url + @"/VOD(?<vid>\d+)""><img class=""img-responsive""\s+src=""(?<img>[^""]+/img/var/storage/imports/(?<filename>[^""]+))""/><span\s+class=""title"">" +
+                    foreach (ProgramInfo pgm in programs)
+                    {
+                        Regex EpisodeRegex = new Regex(
+                            @"<a href=""" + pgm.Url + @"/VOD(?<vid>\d+)""><img class=""img-responsive""\s+src=""(?<img>[^""]+/img/var/storage/imports/(?<filename>[^""]+))""/><span\s+class=""title"">" +
                             @"<span>Saison (?<saison>\d+)\s*,\s*&Eacute;pisode\s*(?<episode>\d+)</span>(?<title>[^<]+)</span></a>",
                             RegexOptions.Multiline | RegexOptions.ExplicitCapture | RegexOptions.Singleline);
 
-                    WebRequest request = HttpWebRequest.Create(program.Url);
-                    string content = request.GetContent();
-                    MatchCollection matches = EpisodeRegex.Matches(content);
-                    for (int i = 0; i < matches.Count; i++)
-                    {
-                        program.Progress = (double)i / matches.Count;
-                        Match m = matches[i];
-
-                        string vid = m.Groups["vid"].Value;
-                        var epd = query.Where((e) => e.Id == vid);
-
-                        EpisodeInfo episode;
-                        if (epd.Count() == 0)
+                        WebRequest request = HttpWebRequest.Create(pgm.Url);
+                        string content = request.GetContent();
+                        MatchCollection matches = EpisodeRegex.Matches(content);
+                        for (int i = 0; i < matches.Count; i++)
                         {
-                            episode = new EpisodeInfo(
-                                program,
-                                vid,
-                                WebUtility.HtmlDecode(m.Groups["title"].Value.Replace("\n", "").Trim()),
-                                GetImage(new Uri(GetImageUrl(m.Groups["filename"].Value))),
-                                byte.Parse(m.Groups["saison"].Value),
-                                byte.Parse(m.Groups["episode"].Value));
+                            onProgress?.Invoke((double)i / matches.Count);
+                            Match m = matches[i];
 
-                            DbInsert(episode);
+                            string vid = m.Groups["vid"].Value;
+                            var epd = query.Where((e) => e.Id == vid);
+
+                            EpisodeInfo episode;
+                            if (epd.Count() == 0)
+                            {
+                                episode = new EpisodeInfo(
+                                    pgm,
+                                    vid,
+                                    WebUtility.HtmlDecode(m.Groups["title"].Value.Replace("\n", "").Trim()),
+                                    GetImage(new Uri(GetImageUrl(m.Groups["filename"].Value))),
+                                    byte.Parse(m.Groups["saison"].Value),
+                                    byte.Parse(m.Groups["episode"].Value));
+
+                                DbInsert(episode);
+                            }
+                            else
+                            {
+                                episode = epd.First();
+                            }
+                            program.Episodes.SortedAdd(episode);
                         }
-                        else
-                        {
-                            episode = epd.First();
-                        }
-                        program.Episodes.SortedAdd(episode);
                     }
-
-                    program.Progress = 1;
-
                     Debug.Write(program.Name + ": Updated");
                     program.LeaveUpdating(true);
                 }
@@ -178,8 +187,7 @@ namespace GulliReplay
             }
             return null;
         }
-
-        public async Task<Exception> GetEpisodeList(ProgramInfo program)
+        public async Task<Exception> GetEpisodeList(ProgramInfo program, Action<double> onProgress = null)
         {
             Exception result = null;
             await Task.Run(() => { result = GetEpisodeListSync(program); });

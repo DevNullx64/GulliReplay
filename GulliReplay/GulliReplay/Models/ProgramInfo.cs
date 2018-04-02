@@ -44,7 +44,7 @@ namespace GulliReplay
         {
             lock (updateLocker)
             {
-                SetProperty(ref _updating, false, "IsUpdating");
+                SetProperty(ref _updating, !updated, "IsUpdating");
                 Updated = updated;
             }
         }
@@ -64,22 +64,11 @@ namespace GulliReplay
             ImageUrl = imageUrl;
         }
 
-        public void GetEpisodeList()
-        {
-            GulliDataSource.Default.GetEpisodeListSync(this);
-        }
-
-        public bool Equals(ProgramInfo other)
-        {
-            return Name == other.Name;
-        }
+        public bool Equals(ProgramInfo other) => Name == other.Name;
 
         public int CompareTo(ProgramInfo other)
         {
-            int result = Name.CompareTo(other.Name);
-            if (result == 0)
-                result = Url.CompareTo(other.Url);
-            return result;
+            return Name.CompareTo(other.Name); ;
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName]string propertyName = "", Action onChanged = null)
