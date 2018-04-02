@@ -21,7 +21,10 @@ namespace GulliReplay
         private bool isUpdated = false;
 
         [Ignore]
-        public bool IsUpdating { get => isUpdating || !isUpdated; set { } }
+        public bool IsVisible { get => isUpdating || !isUpdated; set { } }
+
+        [Ignore]
+        public bool IsUpdating { get => isUpdating; set { } }
         private bool isUpdating = false;
 
         [Ignore]
@@ -41,15 +44,16 @@ namespace GulliReplay
                     SetProperty(ref isUpdating, true, "IsUpdating");
                     return true;
                 }
-                return false;
+                else
+                    return false;
             }
         }
         public void LeaveUpdating(bool updated)
         {
             lock (updateLocker)
             {
+                SetProperty(ref isUpdated, updated, "IsUpdated");
                 SetProperty(ref isUpdating, !updated, "IsUpdating");
-                isUpdated = updated;
             }
         }
 
@@ -58,13 +62,15 @@ namespace GulliReplay
         public string Type { get; set; }
         public string Name { get; set; }
         public string ImageUrl { get; set; }
+        [Ignore]
+        internal bool IsFilm => ((Episodes.Count == 1) && (Episodes[0].Saison == 0)) || (Name == GulliDataSource.FilmProgramName);
 
         public ProgramInfo() { }
         public ProgramInfo(string url, string type, string name, string imageUrl)
         {
             Url = url;
-            Type = type;
             Name = name;
+            Type = type;
             ImageUrl = imageUrl;
         }
 
@@ -94,6 +100,8 @@ namespace GulliReplay
                 return;
 
             changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if ((propertyName == "IsUpdated") || (propertyName == "IsUpdating"))
+                OnPropertyChanged("IsVisible");
         }
     }
 }

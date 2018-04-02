@@ -15,6 +15,8 @@ namespace GulliReplay
 {
     public class GulliDataSource : IReplayDataSource
     {
+        public const string FilmProgramName = "# Films";
+
         private static readonly Uri ProgramPage = new Uri("http://replay.gulli.fr/all");
 
         private SQLiteConnection db;
@@ -99,8 +101,28 @@ namespace GulliReplay
 
                 Task.Run(() =>
                     {
-                        foreach (ProgramInfo program in programs)
+                        ObservableCollection<EpisodeInfo> films = null;
+                        for (int i = 0; i < programs.Count; i++)
+                        {
+                            ProgramInfo program = programs[i];
                             GetEpisodeListSync(program, (p) => program.Progress = p);
+                            if (program.IsFilm)
+                            {
+                                program.Name = GulliDataSource.FilmProgramName;
+                                DbUpdate(program);
+                                if (films == null)
+                                {
+                                    films = program.Episodes;
+                                    programs.RemoveAt(i);
+                                    programs.SortedAdd(program);
+                                }
+                                else
+                                {
+                                    films.SortedAdd(program.Episodes);
+                                    programs.RemoveAt(i--);
+                                }
+                            }
+                        }
                     }
                 );
 
@@ -164,7 +186,7 @@ namespace GulliReplay
                             if (epd.Count() == 0)
                             {
                                 episode = new EpisodeInfo(
-                                    pgm,
+                                    pgm.Url,
                                     vid,
                                     WebUtility.HtmlDecode(m.Groups["title"].Value.Replace("\n", "").Trim()),
                                     GetImage(new Uri(GetImageUrl(m.Groups["filename"].Value))),
@@ -174,19 +196,8 @@ namespace GulliReplay
                                 DbInsert(episode);
                             }
                             else
-                            {
                                 episode = epd.First();
-                            }
                             program.Episodes.SortedAdd(episode);
-                        }
-                        if (program.Episodes.Count == 1)
-                        {
-                            EpisodeInfo episode = program.Episodes[0];
-                            if((episode.Saison==0) && (episode.Episode == 0))
-                            {
-                                program.Name = "# Films";
-                                DbUpdate(program);
-                            }
                         }
                     }
                     Debug.Write(program.Name + ": Updated");

@@ -1,34 +1,29 @@
 ﻿using SQLite;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 
 namespace GulliReplay
 {
-    public class EpisodeInfo: IEquatable<EpisodeInfo>, IComparable<EpisodeInfo>
+    public class EpisodeInfo : IEquatable<EpisodeInfo>, IComparable<EpisodeInfo>
     {
-        private readonly ProgramInfo Program;
-
         [PrimaryKey]
         public string Id { get; set; }
         [Indexed]
-        public string ProgramUrl { get => Program.Url; set { } }
+        public string ProgramUrl { get; set; }
         public string Title { get; set; }
         public string ImageUrl { get; set; }
         public byte Saison { get; set; }
         public byte Episode { get; set; }
 
         public EpisodeInfo() { }
-        public EpisodeInfo(ProgramInfo program, string id, string title, string imageUrl, byte saison, byte episode)
+        public EpisodeInfo(string programUrl, string id, string title, string imageUrl, byte saison, byte episode)
         {
-            Program = program;
+            ProgramUrl = programUrl;
             Id = id;
             Title = title;
             Saison = saison;
             Episode = episode;
             ImageUrl = imageUrl;
-        }
+       }
 
         public Uri GetVideoStream()
         {

@@ -29,7 +29,7 @@
                                 LineBreakMode="WordWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 
                                 FontSize="16"/>
-                            <Grid IsVisible="{Binding IsUpdating}">
+                            <Grid IsVisible="{Binding IsVisible}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition Width="*" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -12,29 +13,32 @@ namespace GulliReplay
         private ProgramInfo Program;
 
         public ObservableCollection<EpisodeInfo> EpisodeList { get; set; }
-        public bool IsUpdated => Program.IsUpdated;
-        double progress = 0;
-        public double Progress
-        {
-            get { return progress; }
-            set { SetProperty(ref progress, value); }
-        }
+        public bool IsUpdated { get => Program.IsUpdated; set { } }
+        public double Progress { get => Program.Progress; set { } }
 
         public Command LoadEpisodeCommand { get; set; }
 
         public EpisodesViewModel(ProgramInfo program = null)
         {
-            Program = program;
+            this.Program = program;
             LoadEpisodeCommand = new Command(async () => await ExecuteLoadItemsCommand());
-            if (Program == null)
+            if (program == null)
                 EpisodeList = new ObservableCollection<EpisodeInfo>();
             else
             {
+                Program.PropertyChanged += PropertyChangedEventHandler;
+                IsBusy = Program.IsUpdating;
                 EpisodeList = program.Episodes;
-                Title = Program.Name;
+                Title = program.Name;
             }
         }
-
+        private void PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsUpdating")
+                IsBusy = Program.IsUpdating;
+            else
+                OnPropertyChanged(e.PropertyName);
+        }
         async Task ExecuteLoadItemsCommand()
         {
             if (IsBusy)
@@ -44,7 +48,7 @@ namespace GulliReplay
 
             try
             {
-                Exception result = await GulliDataSource.Default.GetEpisodeList(Program, (p) => Progress = p);
+                Exception result = await GulliDataSource.Default.GetEpisodeList(Program, (p) => Program.Progress = p);
                 if (result != null)
                     Title = Program.Name + "(" + result.Message + ")";
             }
@@ -57,6 +61,5 @@ namespace GulliReplay
                 IsBusy = false;
             }
         }
-
     }
 }
