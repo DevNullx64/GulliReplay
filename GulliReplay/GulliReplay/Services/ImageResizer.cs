@@ -24,7 +24,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 #endif
 
 #if WINDOWS_UWP
-using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using Windows.Graphics.Imaging;
 using System.Runtime.InteropServices.WindowsRuntime;

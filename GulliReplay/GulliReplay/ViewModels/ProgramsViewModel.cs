@@ -20,11 +20,10 @@ namespace GulliReplay
             get { return progress; }
             set { SetProperty(ref progress, value); }
         }
-        private bool isUpdating = true;
 
         public ProgramsViewModel()
         {
-            Title = defaultTitle + Helpers.updateString;
+            Title = defaultTitle;
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
         }
 
@@ -39,9 +38,9 @@ namespace GulliReplay
             {
                 Exception e = await GulliDataSource.Default.GetProgramList(ProgramList, (p) => Progress = p);
                 if (e != null)
-                    Title = defaultTitle + "(Update error)";
+                    Title = defaultTitle + " (Erreur)";
                 else
-                    Title = defaultTitle + "(" + ProgramList.Count.ToString() + ")";
+                    Title = defaultTitle + " (" + ProgramList.Count.ToString() + ")";
             }
             catch (Exception ex)
             {

@@ -38,8 +38,6 @@ namespace GulliReplay.Droid
 			global::RoxVideo.Resource.Animation.abc_slide_out_top = global::GulliReplay.Droid.Resource.Animation.abc_slide_out_top;
 			global::RoxVideo.Resource.Animation.design_bottom_sheet_slide_in = global::GulliReplay.Droid.Resource.Animation.design_bottom_sheet_slide_in;
 			global::RoxVideo.Resource.Animation.design_bottom_sheet_slide_out = global::GulliReplay.Droid.Resource.Animation.design_bottom_sheet_slide_out;
-			global::RoxVideo.Resource.Animation.design_fab_in = global::GulliReplay.Droid.Resource.Animation.design_fab_in;
-			global::RoxVideo.Resource.Animation.design_fab_out = global::GulliReplay.Droid.Resource.Animation.design_fab_out;
 			global::RoxVideo.Resource.Animation.design_snackbar_in = global::GulliReplay.Droid.Resource.Animation.design_snackbar_in;
 			global::RoxVideo.Resource.Animation.design_snackbar_out = global::GulliReplay.Droid.Resource.Animation.design_snackbar_out;
 			global::RoxVideo.Resource.Attribute.actionBarDivider = global::GulliReplay.Droid.Resource.Attribute.actionBarDivider;
@@ -390,8 +388,6 @@ namespace GulliReplay.Droid
 			global::RoxVideo.Resource.Color.design_fab_stroke_top_inner_color = global::GulliReplay.Droid.Resource.Color.design_fab_stroke_top_inner_color;
 			global::RoxVideo.Resource.Color.design_fab_stroke_top_outer_color = global::GulliReplay.Droid.Resource.Color.design_fab_stroke_top_outer_color;
 			global::RoxVideo.Resource.Color.design_snackbar_background_color = global::GulliReplay.Droid.Resource.Color.design_snackbar_background_color;
-			global::RoxVideo.Resource.Color.design_textinput_error_color_dark = global::GulliReplay.Droid.Resource.Color.design_textinput_error_color_dark;
-			global::RoxVideo.Resource.Color.design_textinput_error_color_light = global::GulliReplay.Droid.Resource.Color.design_textinput_error_color_light;
 			global::RoxVideo.Resource.Color.dim_foreground_disabled_material_dark = global::GulliReplay.Droid.Resource.Color.dim_foreground_disabled_material_dark;
 			global::RoxVideo.Resource.Color.dim_foreground_disabled_material_light = global::GulliReplay.Droid.Resource.Color.dim_foreground_disabled_material_light;
 			global::RoxVideo.Resource.Color.dim_foreground_material_dark = global::GulliReplay.Droid.Resource.Color.dim_foreground_material_dark;
@@ -1698,22 +1694,16 @@ namespace GulliReplay.Droid
 			public const int design_bottom_sheet_slide_out = 2130968587;
 			
 			// aapt resource value: 0x7f04000c
-			public const int design_fab_in = 2130968588;
+			public const int design_snackbar_in = 2130968588;
 			
 			// aapt resource value: 0x7f04000d
-			public const int design_fab_out = 2130968589;
+			public const int design_snackbar_out = 2130968589;
 			
 			// aapt resource value: 0x7f04000e
-			public const int design_snackbar_in = 2130968590;
+			public const int tooltip_enter = 2130968590;
 			
 			// aapt resource value: 0x7f04000f
-			public const int design_snackbar_out = 2130968591;
-			
-			// aapt resource value: 0x7f040010
-			public const int tooltip_enter = 2130968592;
-			
-			// aapt resource value: 0x7f040011
-			public const int tooltip_exit = 2130968593;
+			public const int tooltip_exit = 2130968591;
 			
 			static Animation()
 			{
@@ -2898,44 +2888,44 @@ namespace GulliReplay.Droid
 		public partial class Color
 		{
 			
+			// aapt resource value: 0x7f0c004b
+			public const int abc_background_cache_hint_selector_material_dark = 2131492939;
+			
+			// aapt resource value: 0x7f0c004c
+			public const int abc_background_cache_hint_selector_material_light = 2131492940;
+			
 			// aapt resource value: 0x7f0c004d
-			public const int abc_background_cache_hint_selector_material_dark = 2131492941;
+			public const int abc_btn_colored_borderless_text_material = 2131492941;
 			
 			// aapt resource value: 0x7f0c004e
-			public const int abc_background_cache_hint_selector_material_light = 2131492942;
+			public const int abc_btn_colored_text_material = 2131492942;
 			
 			// aapt resource value: 0x7f0c004f
-			public const int abc_btn_colored_borderless_text_material = 2131492943;
+			public const int abc_color_highlight_material = 2131492943;
 			
 			// aapt resource value: 0x7f0c0050
-			public const int abc_btn_colored_text_material = 2131492944;
+			public const int abc_hint_foreground_material_dark = 2131492944;
 			
 			// aapt resource value: 0x7f0c0051
-			public const int abc_color_highlight_material = 2131492945;
-			
-			// aapt resource value: 0x7f0c0052
-			public const int abc_hint_foreground_material_dark = 2131492946;
-			
-			// aapt resource value: 0x7f0c0053
-			public const int abc_hint_foreground_material_light = 2131492947;
+			public const int abc_hint_foreground_material_light = 2131492945;
 			
 			// aapt resource value: 0x7f0c0004
 			public const int abc_input_method_navigation_guard = 2131492868;
 			
+			// aapt resource value: 0x7f0c0052
+			public const int abc_primary_text_disable_only_material_dark = 2131492946;
+			
+			// aapt resource value: 0x7f0c0053
+			public const int abc_primary_text_disable_only_material_light = 2131492947;
+			
 			// aapt resource value: 0x7f0c0054
-			public const int abc_primary_text_disable_only_material_dark = 2131492948;
+			public const int abc_primary_text_material_dark = 2131492948;
 			
 			// aapt resource value: 0x7f0c0055
-			public const int abc_primary_text_disable_only_material_light = 2131492949;
+			public const int abc_primary_text_material_light = 2131492949;
 			
 			// aapt resource value: 0x7f0c0056
-			public const int abc_primary_text_material_dark = 2131492950;
-			
-			// aapt resource value: 0x7f0c0057
-			public const int abc_primary_text_material_light = 2131492951;
-			
-			// aapt resource value: 0x7f0c0058
-			public const int abc_search_url_text = 2131492952;
+			public const int abc_search_url_text = 2131492950;
 			
 			// aapt resource value: 0x7f0c0005
 			public const int abc_search_url_text_normal = 2131492869;
@@ -2946,29 +2936,29 @@ namespace GulliReplay.Droid
 			// aapt resource value: 0x7f0c0007
 			public const int abc_search_url_text_selected = 2131492871;
 			
+			// aapt resource value: 0x7f0c0057
+			public const int abc_secondary_text_material_dark = 2131492951;
+			
+			// aapt resource value: 0x7f0c0058
+			public const int abc_secondary_text_material_light = 2131492952;
+			
 			// aapt resource value: 0x7f0c0059
-			public const int abc_secondary_text_material_dark = 2131492953;
+			public const int abc_tint_btn_checkable = 2131492953;
 			
 			// aapt resource value: 0x7f0c005a
-			public const int abc_secondary_text_material_light = 2131492954;
+			public const int abc_tint_default = 2131492954;
 			
 			// aapt resource value: 0x7f0c005b
-			public const int abc_tint_btn_checkable = 2131492955;
+			public const int abc_tint_edittext = 2131492955;
 			
 			// aapt resource value: 0x7f0c005c
-			public const int abc_tint_default = 2131492956;
+			public const int abc_tint_seek_thumb = 2131492956;
 			
 			// aapt resource value: 0x7f0c005d
-			public const int abc_tint_edittext = 2131492957;
+			public const int abc_tint_spinner = 2131492957;
 			
 			// aapt resource value: 0x7f0c005e
-			public const int abc_tint_seek_thumb = 2131492958;
-			
-			// aapt resource value: 0x7f0c005f
-			public const int abc_tint_spinner = 2131492959;
-			
-			// aapt resource value: 0x7f0c0060
-			public const int abc_tint_switch_track = 2131492960;
+			public const int abc_tint_switch_track = 2131492958;
 			
 			// aapt resource value: 0x7f0c0008
 			public const int accent_material_dark = 2131492872;
@@ -3027,8 +3017,8 @@ namespace GulliReplay.Droid
 			// aapt resource value: 0x7f0c0040
 			public const int design_bottom_navigation_shadow_color = 2131492928;
 			
-			// aapt resource value: 0x7f0c0061
-			public const int design_error = 2131492961;
+			// aapt resource value: 0x7f0c005f
+			public const int design_error = 2131492959;
 			
 			// aapt resource value: 0x7f0c0041
 			public const int design_fab_shadow_end_color = 2131492929;
@@ -3054,14 +3044,8 @@ namespace GulliReplay.Droid
 			// aapt resource value: 0x7f0c0048
 			public const int design_snackbar_background_color = 2131492936;
 			
-			// aapt resource value: 0x7f0c0049
-			public const int design_textinput_error_color_dark = 2131492937;
-			
-			// aapt resource value: 0x7f0c004a
-			public const int design_textinput_error_color_light = 2131492938;
-			
-			// aapt resource value: 0x7f0c0062
-			public const int design_tint_password_toggle = 2131492962;
+			// aapt resource value: 0x7f0c0060
+			public const int design_tint_password_toggle = 2131492960;
 			
 			// aapt resource value: 0x7f0c0016
 			public const int dim_foreground_disabled_material_dark = 2131492886;
@@ -3126,11 +3110,11 @@ namespace GulliReplay.Droid
 			// aapt resource value: 0x7f0c002a
 			public const int material_grey_900 = 2131492906;
 			
-			// aapt resource value: 0x7f0c004b
-			public const int notification_action_color_filter = 2131492939;
+			// aapt resource value: 0x7f0c0049
+			public const int notification_action_color_filter = 2131492937;
 			
-			// aapt resource value: 0x7f0c004c
-			public const int notification_icon_bg_color = 2131492940;
+			// aapt resource value: 0x7f0c004a
+			public const int notification_icon_bg_color = 2131492938;
 			
 			// aapt resource value: 0x7f0c003f
 			public const int notification_material_background_media_default_color = 2131492927;
@@ -3183,11 +3167,11 @@ namespace GulliReplay.Droid
 			// aapt resource value: 0x7f0c003a
 			public const int switch_thumb_disabled_material_light = 2131492922;
 			
-			// aapt resource value: 0x7f0c0063
-			public const int switch_thumb_material_dark = 2131492963;
+			// aapt resource value: 0x7f0c0061
+			public const int switch_thumb_material_dark = 2131492961;
 			
-			// aapt resource value: 0x7f0c0064
-			public const int switch_thumb_material_light = 2131492964;
+			// aapt resource value: 0x7f0c0062
+			public const int switch_thumb_material_light = 2131492962;
 			
 			// aapt resource value: 0x7f0c003b
 			public const int switch_thumb_normal_material_dark = 2131492923;
@@ -5789,11 +5773,11 @@ namespace GulliReplay.Droid
 			// aapt resource value: 0x7f0b00a8
 			public const int Animation_AppCompat_Tooltip = 2131427496;
 			
-			// aapt resource value: 0x7f0b016c
-			public const int Animation_Design_BottomSheetDialog = 2131427692;
+			// aapt resource value: 0x7f0b016e
+			public const int Animation_Design_BottomSheetDialog = 2131427694;
 			
-			// aapt resource value: 0x7f0b018e
-			public const int AppCompatDialogStyle = 2131427726;
+			// aapt resource value: 0x7f0b0191
+			public const int AppCompatDialogStyle = 2131427729;
 			
 			// aapt resource value: 0x7f0b00a9
 			public const int Base_AlertDialog_AppCompat = 2131427497;
@@ -6041,6 +6025,9 @@ namespace GulliReplay.Droid
 			// aapt resource value: 0x7f0b0033
 			public const int Base_V12_Widget_AppCompat_EditText = 2131427379;
 			
+			// aapt resource value: 0x7f0b016f
+			public const int Base_V14_Widget_Design_AppBarLayout = 2131427695;
+			
 			// aapt resource value: 0x7f0b006b
 			public const int Base_V21_Theme_AppCompat = 2131427435;
 			
@@ -6055,6 +6042,9 @@ namespace GulliReplay.Droid
 			
 			// aapt resource value: 0x7f0b006f
 			public const int Base_V21_ThemeOverlay_AppCompat_Dialog = 2131427439;
+			
+			// aapt resource value: 0x7f0b016b
+			public const int Base_V21_Widget_Design_AppBarLayout = 2131427691;
 			
 			// aapt resource value: 0x7f0b0093
 			public const int Base_V22_Theme_AppCompat = 2131427475;
@@ -6076,6 +6066,9 @@ namespace GulliReplay.Droid
 			
 			// aapt resource value: 0x7f0b00a2
 			public const int Base_V26_Widget_AppCompat_Toolbar = 2131427490;
+			
+			// aapt resource value: 0x7f0b016d
+			public const int Base_V26_Widget_Design_AppBarLayout = 2131427693;
 			
 			// aapt resource value: 0x7f0b00bd
 			public const int Base_V7_Theme_AppCompat = 2131427517;
@@ -6272,11 +6265,11 @@ namespace GulliReplay.Droid
 			// aapt resource value: 0x7f0b008d
 			public const int Base_Widget_AppCompat_Toolbar_Button_Navigation = 2131427469;
 			
-			// aapt resource value: 0x7f0b016d
-			public const int Base_Widget_Design_AppBarLayout = 2131427693;
+			// aapt resource value: 0x7f0b016c
+			public const int Base_Widget_Design_AppBarLayout = 2131427692;
 			
-			// aapt resource value: 0x7f0b016e
-			public const int Base_Widget_Design_TabLayout = 2131427694;
+			// aapt resource value: 0x7f0b0170
+			public const int Base_Widget_Design_TabLayout = 2131427696;
 			
 			// aapt resource value: 0x7f0b000b
 			public const int CardView = 2131427339;
@@ -6287,11 +6280,11 @@ namespace GulliReplay.Droid
 			// aapt resource value: 0x7f0b000e
 			public const int CardView_Light = 2131427342;
 			
-			// aapt resource value: 0x7f0b018c
-			public const int MyTheme = 2131427724;
+			// aapt resource value: 0x7f0b018f
+			public const int MyTheme = 2131427727;
 			
-			// aapt resource value: 0x7f0b018d
-			public const int MyTheme_Base = 2131427725;
+			// aapt resource value: 0x7f0b0190
+			public const int MyTheme_Base = 2131427728;
 			
 			// aapt resource value: 0x7f0b002d
 			public const int Platform_AppCompat = 2131427373;
@@ -6521,17 +6514,17 @@ namespace GulliReplay.Droid
 			// aapt resource value: 0x7f0b0104
 			public const int TextAppearance_AppCompat_Widget_TextView_SpinnerItem = 2131427588;
 			
-			// aapt resource value: 0x7f0b0185
-			public const int TextAppearance_Compat_Notification = 2131427717;
+			// aapt resource value: 0x7f0b0188
+			public const int TextAppearance_Compat_Notification = 2131427720;
 			
-			// aapt resource value: 0x7f0b0186
-			public const int TextAppearance_Compat_Notification_Info = 2131427718;
+			// aapt resource value: 0x7f0b0189
+			public const int TextAppearance_Compat_Notification_Info = 2131427721;
 			
 			// aapt resource value: 0x7f0b0165
 			public const int TextAppearance_Compat_Notification_Info_Media = 2131427685;
 			
-			// aapt resource value: 0x7f0b018b
-			public const int TextAppearance_Compat_Notification_Line2 = 2131427723;
+			// aapt resource value: 0x7f0b018e
+			public const int TextAppearance_Compat_Notification_Line2 = 2131427726;
 			
 			// aapt resource value: 0x7f0b0169
 			public const int TextAppearance_Compat_Notification_Line2_Media = 2131427689;
@@ -6539,38 +6532,38 @@ namespace GulliReplay.Droid
 			// aapt resource value: 0x7f0b0166
 			public const int TextAppearance_Compat_Notification_Media = 2131427686;
 			
-			// aapt resource value: 0x7f0b0187
-			public const int TextAppearance_Compat_Notification_Time = 2131427719;
+			// aapt resource value: 0x7f0b018a
+			public const int TextAppearance_Compat_Notification_Time = 2131427722;
 			
 			// aapt resource value: 0x7f0b0167
 			public const int TextAppearance_Compat_Notification_Time_Media = 2131427687;
 			
-			// aapt resource value: 0x7f0b0188
-			public const int TextAppearance_Compat_Notification_Title = 2131427720;
+			// aapt resource value: 0x7f0b018b
+			public const int TextAppearance_Compat_Notification_Title = 2131427723;
 			
 			// aapt resource value: 0x7f0b0168
 			public const int TextAppearance_Compat_Notification_Title_Media = 2131427688;
 			
-			// aapt resource value: 0x7f0b016f
-			public const int TextAppearance_Design_CollapsingToolbar_Expanded = 2131427695;
-			
-			// aapt resource value: 0x7f0b0170
-			public const int TextAppearance_Design_Counter = 2131427696;
-			
 			// aapt resource value: 0x7f0b0171
-			public const int TextAppearance_Design_Counter_Overflow = 2131427697;
+			public const int TextAppearance_Design_CollapsingToolbar_Expanded = 2131427697;
 			
 			// aapt resource value: 0x7f0b0172
-			public const int TextAppearance_Design_Error = 2131427698;
+			public const int TextAppearance_Design_Counter = 2131427698;
 			
 			// aapt resource value: 0x7f0b0173
-			public const int TextAppearance_Design_Hint = 2131427699;
+			public const int TextAppearance_Design_Counter_Overflow = 2131427699;
 			
 			// aapt resource value: 0x7f0b0174
-			public const int TextAppearance_Design_Snackbar_Message = 2131427700;
+			public const int TextAppearance_Design_Error = 2131427700;
 			
 			// aapt resource value: 0x7f0b0175
-			public const int TextAppearance_Design_Tab = 2131427701;
+			public const int TextAppearance_Design_Hint = 2131427701;
+			
+			// aapt resource value: 0x7f0b0176
+			public const int TextAppearance_Design_Snackbar_Message = 2131427702;
+			
+			// aapt resource value: 0x7f0b0177
+			public const int TextAppearance_Design_Tab = 2131427703;
 			
 			// aapt resource value: 0x7f0b0000
 			public const int TextAppearance_MediaRouter_PrimaryText = 2131427328;
@@ -6653,23 +6646,23 @@ namespace GulliReplay.Droid
 			// aapt resource value: 0x7f0b0115
 			public const int Theme_AppCompat_NoActionBar = 2131427605;
 			
-			// aapt resource value: 0x7f0b0176
-			public const int Theme_Design = 2131427702;
-			
-			// aapt resource value: 0x7f0b0177
-			public const int Theme_Design_BottomSheetDialog = 2131427703;
-			
 			// aapt resource value: 0x7f0b0178
-			public const int Theme_Design_Light = 2131427704;
+			public const int Theme_Design = 2131427704;
 			
 			// aapt resource value: 0x7f0b0179
-			public const int Theme_Design_Light_BottomSheetDialog = 2131427705;
+			public const int Theme_Design_BottomSheetDialog = 2131427705;
 			
 			// aapt resource value: 0x7f0b017a
-			public const int Theme_Design_Light_NoActionBar = 2131427706;
+			public const int Theme_Design_Light = 2131427706;
 			
 			// aapt resource value: 0x7f0b017b
-			public const int Theme_Design_NoActionBar = 2131427707;
+			public const int Theme_Design_Light_BottomSheetDialog = 2131427707;
+			
+			// aapt resource value: 0x7f0b017c
+			public const int Theme_Design_Light_NoActionBar = 2131427708;
+			
+			// aapt resource value: 0x7f0b017d
+			public const int Theme_Design_NoActionBar = 2131427709;
 			
 			// aapt resource value: 0x7f0b0003
 			public const int Theme_MediaRouter = 2131427331;
@@ -6926,44 +6919,44 @@ namespace GulliReplay.Droid
 			// aapt resource value: 0x7f0b0164
 			public const int Widget_AppCompat_Toolbar_Button_Navigation = 2131427684;
 			
-			// aapt resource value: 0x7f0b0189
-			public const int Widget_Compat_NotificationActionContainer = 2131427721;
+			// aapt resource value: 0x7f0b018c
+			public const int Widget_Compat_NotificationActionContainer = 2131427724;
 			
-			// aapt resource value: 0x7f0b018a
-			public const int Widget_Compat_NotificationActionText = 2131427722;
-			
-			// aapt resource value: 0x7f0b016b
-			public const int Widget_Design_AppBarLayout = 2131427691;
-			
-			// aapt resource value: 0x7f0b017c
-			public const int Widget_Design_BottomNavigationView = 2131427708;
-			
-			// aapt resource value: 0x7f0b017d
-			public const int Widget_Design_BottomSheet_Modal = 2131427709;
+			// aapt resource value: 0x7f0b018d
+			public const int Widget_Compat_NotificationActionText = 2131427725;
 			
 			// aapt resource value: 0x7f0b017e
-			public const int Widget_Design_CollapsingToolbar = 2131427710;
+			public const int Widget_Design_AppBarLayout = 2131427710;
 			
 			// aapt resource value: 0x7f0b017f
-			public const int Widget_Design_CoordinatorLayout = 2131427711;
+			public const int Widget_Design_BottomNavigationView = 2131427711;
 			
 			// aapt resource value: 0x7f0b0180
-			public const int Widget_Design_FloatingActionButton = 2131427712;
+			public const int Widget_Design_BottomSheet_Modal = 2131427712;
 			
 			// aapt resource value: 0x7f0b0181
-			public const int Widget_Design_NavigationView = 2131427713;
+			public const int Widget_Design_CollapsingToolbar = 2131427713;
 			
 			// aapt resource value: 0x7f0b0182
-			public const int Widget_Design_ScrimInsetsFrameLayout = 2131427714;
+			public const int Widget_Design_CoordinatorLayout = 2131427714;
 			
 			// aapt resource value: 0x7f0b0183
-			public const int Widget_Design_Snackbar = 2131427715;
+			public const int Widget_Design_FloatingActionButton = 2131427715;
+			
+			// aapt resource value: 0x7f0b0184
+			public const int Widget_Design_NavigationView = 2131427716;
+			
+			// aapt resource value: 0x7f0b0185
+			public const int Widget_Design_ScrimInsetsFrameLayout = 2131427717;
+			
+			// aapt resource value: 0x7f0b0186
+			public const int Widget_Design_Snackbar = 2131427718;
 			
 			// aapt resource value: 0x7f0b016a
 			public const int Widget_Design_TabLayout = 2131427690;
 			
-			// aapt resource value: 0x7f0b0184
-			public const int Widget_Design_TextInputLayout = 2131427716;
+			// aapt resource value: 0x7f0b0187
+			public const int Widget_Design_TextInputLayout = 2131427719;
 			
 			// aapt resource value: 0x7f0b0009
 			public const int Widget_MediaRouter_Light_MediaRouteButton = 2131427337;
@@ -6971,8 +6964,8 @@ namespace GulliReplay.Droid
 			// aapt resource value: 0x7f0b000a
 			public const int Widget_MediaRouter_MediaRouteButton = 2131427338;
 			
-			// aapt resource value: 0x7f0b018f
-			public const int splashscreen = 2131427727;
+			// aapt resource value: 0x7f0b0192
+			public const int splashscreen = 2131427730;
 			
 			static Style()
 			{
@@ -7187,17 +7180,25 @@ namespace GulliReplay.Droid
 			
 			public static int[] AppBarLayout = new int[] {
 					16842964,
+					16843919,
+					16844096,
 					2130772030,
 					2130772248};
 			
 			// aapt resource value: 0
 			public const int AppBarLayout_android_background = 0;
 			
-			// aapt resource value: 1
-			public const int AppBarLayout_elevation = 1;
-			
 			// aapt resource value: 2
-			public const int AppBarLayout_expanded = 2;
+			public const int AppBarLayout_android_keyboardNavigationCluster = 2;
+			
+			// aapt resource value: 1
+			public const int AppBarLayout_android_touchscreenBlocksFocus = 1;
+			
+			// aapt resource value: 3
+			public const int AppBarLayout_elevation = 3;
+			
+			// aapt resource value: 4
+			public const int AppBarLayout_expanded = 4;
 			
 			public static int[] AppBarLayoutStates = new int[] {
 					2130772249,

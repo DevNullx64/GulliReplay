@@ -15,26 +15,30 @@ namespace GulliReplay
         public ObservableCollection<EpisodeInfo> Episodes { get; set; } = new ObservableCollection<EpisodeInfo>();
 
         private object updateLocker = new object();
-        public bool Updated = false;
 
-        private bool _updating = false;
         [Ignore]
-        public bool IsUpdating { get => _updating || !Updated; set { } }
-        private double _Progress = 0;
+        public bool IsUpdated => isUpdated;
+        private bool isUpdated = false;
+
+        [Ignore]
+        public bool IsUpdating { get => isUpdating || !isUpdated; set { } }
+        private bool isUpdating = false;
+
         [Ignore]
         public double Progress
         {
-            get => _Progress;
-            set => SetProperty(ref _Progress, value);
+            get => progress;
+            set => SetProperty(ref progress, value);
         }
+        private double progress = 0;
 
         public bool EnterUpdating()
         {
             lock (updateLocker)
             {
-                if (!(_updating || Updated))
+                if (!isUpdating)
                 {
-                    SetProperty(ref _updating, true, "IsUpdating");
+                    SetProperty(ref isUpdating, true, "IsUpdating");
                     return true;
                 }
                 return false;
@@ -44,8 +48,8 @@ namespace GulliReplay
         {
             lock (updateLocker)
             {
-                SetProperty(ref _updating, !updated, "IsUpdating");
-                Updated = updated;
+                SetProperty(ref isUpdating, !updated, "IsUpdating");
+                isUpdated = updated;
             }
         }
 

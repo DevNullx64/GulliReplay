@@ -1,6 +1,7 @@
 ﻿using GulliReplay.UWP;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace GulliReplay.UWP
                 return true;
             } catch (Exception e)
             {
+                Debug.Write(e.Message);
                 return false;
             }
         }
@@ -33,6 +35,7 @@ namespace GulliReplay.UWP
             }
             catch (Exception e)
             {
+                Debug.Write(e.Message);
                 return false;
             }
         }

@@ -28,12 +28,16 @@ namespace GulliReplay
             db.CreateTable<EpisodeInfo>();
         }
 
-        private object insertLocker = new object();
-        private object selectLocker = new object();
+        private object Locker = new object();
         public int DbInsert(object item)
         {
-            lock (insertLocker)
+            lock (Locker)
                 return db.Insert(item);
+        }
+        public int DbUpdate(object item)
+        {
+            lock (Locker)
+                return db.Update(item);
         }
 
         private bool PogrameUpdating = false;
@@ -58,7 +62,7 @@ namespace GulliReplay
                 }
 
                 TableQuery<ProgramInfo> query = null;
-                lock (selectLocker)
+                lock (Locker)
                     query = db.Table<ProgramInfo>();
 
                 if (query != null)
@@ -127,7 +131,7 @@ namespace GulliReplay
 
                     TableQuery<EpisodeInfo> query;
                     TableQuery<ProgramInfo> programs;
-                    lock (selectLocker)
+                    lock (Locker)
                     {
                         programs = db.Table<ProgramInfo>().Where((e) => e.Name == program.Name);
                         List<string> urls = new List<string>();
@@ -175,6 +179,15 @@ namespace GulliReplay
                             }
                             program.Episodes.SortedAdd(episode);
                         }
+                        if (program.Episodes.Count == 1)
+                        {
+                            EpisodeInfo episode = program.Episodes[0];
+                            if((episode.Saison==0) && (episode.Episode == 0))
+                            {
+                                program.Name = "# Films";
+                                DbUpdate(program);
+                            }
+                        }
                     }
                     Debug.Write(program.Name + ": Updated");
                     program.LeaveUpdating(true);
@@ -192,7 +205,7 @@ namespace GulliReplay
         public async Task<Exception> GetEpisodeList(ProgramInfo program, Action<double> onProgress = null)
         {
             Exception result = null;
-            await Task.Run(() => { result = GetEpisodeListSync(program); });
+            await Task.Run(() => { result = GetEpisodeListSync(program, onProgress); });
             return result;
         }
 

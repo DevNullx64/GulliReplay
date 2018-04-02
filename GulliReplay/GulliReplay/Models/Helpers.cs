@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace GulliReplay
 {
@@ -26,8 +27,8 @@ namespace GulliReplay
                 collection.Add(item);
             }
         }
-
-        public static void SortedAdd<T>(this ObservableCollection<T> collection, IEnumerable<T> items) where T: IComparable<T> {
+        public static void SortedAdd<T>(this ObservableCollection<T> collection, IEnumerable<T> items) where T : IComparable<T>
+        {
             if ((collection != null) && (items != null))
             {
                 foreach (T item in items)
@@ -35,48 +36,36 @@ namespace GulliReplay
             }
         }
 
-        public const string updateString = " (en cours de mise à jour...)";
-
-        private static AutoResetEvent GetResponseSyncEvent = new AutoResetEvent(false);
-        private class GetResponseSyncObject
-        {
-            public WebRequest Request;
-            public WebResponse Response;
-
-            public GetResponseSyncObject(WebRequest request, WebResponse response = null)
-            {
-                Request = request;
-                Response = response;
-            }
-        }
-
-        public static WebResponse GetResponseSync(this Uri uri)
-        {
-            return (HttpWebRequest.Create(uri)).GetResponseSync();
-        }
+        public static WebResponse GetResponseSync(this Uri uri) => (HttpWebRequest.Create(uri)).GetResponseSync();
         public static WebResponse GetResponseSync(this WebRequest request)
         {
-            GetResponseSyncObject data = new GetResponseSyncObject(request);
-            request.BeginGetResponse(new AsyncCallback(GetResponseSyncCallBack), data);
-            GetResponseSyncEvent.WaitOne();
-            return data.Response;
-        }
-        private static void GetResponseSyncCallBack(IAsyncResult asynchronousResult)
-        {
-            GetResponseSyncObject data = (GetResponseSyncObject)asynchronousResult.AsyncState;
-            data.Response = data.Request.EndGetResponse(asynchronousResult);
-            GetResponseSyncEvent.Set();
+            Task<WebResponse> task = request.GetResponseAsync();
+            task.Wait();
+            return task.Result;
         }
 
-        public static string GetContent(this Uri uri)
-        {
-            return HttpWebRequest.Create(uri).GetContent();
-        }
+        public static string GetContent(this Uri uri) => HttpWebRequest.Create(uri).GetContent();
         public static string GetContent(this WebRequest request)
         {
-            using (WebResponse response = request.GetResponseSync())
-            using (StreamReader sr = new StreamReader(response.GetResponseStream()))
-                return sr.ReadToEnd();
+            try
+            {
+                if (request == null)
+                    throw new NullReferenceException("GetContent: 'request' is null.");
+                else
+                {
+                    using (WebResponse response = request.GetResponseSync())
+                        if (response == null)
+                            throw new NullReferenceException("GetContent: 'request' is null.");
+                        else
+                            using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+                                return sr.ReadToEnd();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.Message);
+                throw e;
+            }
         }
 
         public static bool Download(Uri uri, string fileName)
@@ -91,7 +80,8 @@ namespace GulliReplay
                 using (Stream content = response.GetResponseStream())
                 using (Stream file = File.Create(fileName))
                     content.CopyTo(file);
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Debug.Write(e.Message);
                 return false;

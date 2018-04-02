@@ -22,7 +22,7 @@ namespace GulliReplay
             if (program == null)
                 return;
 
-            await Navigation.PushAsync(new EpisodesPage(new EpisodesViewModel(program)));
+            await Navigation.PushAsync(new EpisodesPage(program));
 
             // Manually deselect item
             ItemsListView.SelectedItem = null;

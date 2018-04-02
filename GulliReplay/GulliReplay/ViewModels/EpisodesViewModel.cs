@@ -12,6 +12,7 @@ namespace GulliReplay
         private ProgramInfo Program;
 
         public ObservableCollection<EpisodeInfo> EpisodeList { get; set; }
+        public bool IsUpdated => Program.IsUpdated;
         double progress = 0;
         public double Progress
         {
@@ -43,7 +44,9 @@ namespace GulliReplay
 
             try
             {
-                await GulliDataSource.Default.GetEpisodeList(Program, (p) => Progress = p);
+                Exception result = await GulliDataSource.Default.GetEpisodeList(Program, (p) => Progress = p);
+                if (result != null)
+                    Title = Program.Name + "(" + result.Message + ")";
             }
             catch (Exception ex)
             {
