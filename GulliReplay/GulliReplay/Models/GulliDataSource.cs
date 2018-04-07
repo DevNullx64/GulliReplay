@@ -220,20 +220,10 @@ namespace GulliReplay
             return result;
         }
 
-        public enum GulliQuality
-        {
-            _200 = 200,
-            _350 = 350,
-            _750 = 750,
-            _900 = 900,
-            _1500 = 1500
-        }
-
-        public Uri GetVideoStream(EpisodeInfo episode) => GetVideoStream(episode, GulliQuality._900);
+        public Uri GetVideoStream(EpisodeInfo episode) => GetVideoStream(episode, Parameters.DefaultQuality);
         public Uri GetVideoStream(EpisodeInfo episode, GulliQuality quality)
         {
-            int q = (int)quality;
-            string str = string.Format("http://gulli-replay-transmux.scdn.arkena.com/{0}/{0}_{1}.mp4", episode.Id, q);
+            string str = string.Format("http://gulli-replay-transmux.scdn.arkena.com/{0}/{0}{1}.mp4", episode.Id, quality);
             return new Uri(str);
         }
         static int imgHeigth = App.DisplayScreenWidth >> 1;

@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Plugin.Connectivity;
+using SQLite;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -10,6 +11,7 @@ namespace GulliReplay
 {
     public class ProgramsViewModel : BaseViewModel
     {
+        private Page Parent;
         private const string defaultTitle = "Choisis ta série";
 
         public ObservableCollection<ProgramInfo> ProgramList { get; set; } = new ObservableCollection<ProgramInfo>();
@@ -21,8 +23,9 @@ namespace GulliReplay
             set { SetProperty(ref progress, value); }
         }
 
-        public ProgramsViewModel()
+        public ProgramsViewModel(Page parent)
         {
+            Parent = parent;
             Title = defaultTitle;
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
         }
@@ -31,16 +34,22 @@ namespace GulliReplay
         {
             if (IsBusy)
                 return;
-
             IsBusy = true;
 
             try
             {
-                Exception e = await GulliDataSource.Default.GetProgramList(ProgramList, (p) => Progress = p);
-                if (e != null)
-                    Title = defaultTitle + " (Erreur)";
+                if (!CrossConnectivity.Current.IsConnected)
+                {
+                    await Parent.DisplayAlert("Pas de connection", "GulliReplay necessite une connection internet pour pouvoir fonctionner", "Ok");
+                }
                 else
-                    Title = defaultTitle + " (" + ProgramList.Count.ToString() + ")";
+                {
+                    Exception e = await GulliDataSource.Default.GetProgramList(ProgramList, (p) => Progress = p);
+                    if (e != null)
+                        Title = defaultTitle + " (Erreur)";
+                    else
+                        Title = defaultTitle + " (" + ProgramList.Count.ToString() + ")";
+                }
             }
             catch (Exception ex)
             {

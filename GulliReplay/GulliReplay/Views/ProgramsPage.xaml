@@ -3,6 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GulliReplay.ProgramPage"
              Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="Parameters.png" Text="Search" Clicked="Parameters_Clicked"/>
+    </ContentPage.ToolbarItems>
     <StackLayout>
         <Grid IsVisible="{Binding IsBusy}">
             <Grid.ColumnDefinitions>
@@ -25,17 +28,16 @@
 			    <DataTemplate>
 				    <ViewCell>
                         <StackLayout>
-                            <Label Text="{Binding Name}" 
-                                LineBreakMode="WordWrap" 
-                                Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16"/>
-                            <Grid IsVisible="{Binding IsVisible}">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0">Mise à jour... </Label>
-                                <ProgressBar Grid.Column="1" Progress="{Binding Progress}" />
+                                <Label Grid.Column="0" Text="{Binding Name}" 
+                                    LineBreakMode="WordWrap" 
+                                    Style="{DynamicResource ListItemTextStyle}" 
+                                    FontSize="16"/>
+                                <ProgressBar Grid.Column="1" Progress="{Binding Progress}" IsVisible="{Binding IsVisible}" />
                             </Grid>
                             <Image x:Name="img" Source="{Binding ImageUrl}" />
                         </StackLayout>

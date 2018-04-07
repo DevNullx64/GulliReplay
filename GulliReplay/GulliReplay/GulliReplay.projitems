@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Parameters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ImageResizer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EpisodeInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Helpers.cs" />
@@ -29,6 +30,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\IStatusBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\IReplayDataSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PlayBackViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Parameters.xaml.cs">
+      <DependentUpon>Parameters.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\PlayBack.xaml.cs">
       <DependentUpon>PlayBack.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -46,6 +51,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PlayBack.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Assets\Gulli_logo_2017.png" />
+    <None Include="$(MSBuildThisFileDirectory)Assets\icon.png" />
+    <None Include="$(MSBuildThisFileDirectory)Assets\Parameters.png" />
+    <None Include="$(MSBuildThisFileDirectory)Assets\Splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Parameters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
