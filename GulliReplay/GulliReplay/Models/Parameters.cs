@@ -24,7 +24,7 @@ namespace GulliReplay
 
         public static GulliQuality DefaultQuality
         {
-            get=>(GulliQuality)Get((int)GulliQuality._900);
+            get => (GulliQuality)Get((int)GulliQuality._900);
             set => Set((int)value);
         }
 

@@ -33,13 +33,11 @@ namespace GulliReplay
         private object Locker = new object();
         public int DbInsert(object item)
         {
-            lock (Locker)
-                return db.Insert(item);
+            lock (Locker) return db.Insert(item);
         }
         public int DbUpdate(object item)
         {
-            lock (Locker)
-                return db.Update(item);
+            lock (Locker) return db.Update(item);
         }
 
         private bool PogrameUpdating = false;
@@ -76,7 +74,8 @@ namespace GulliReplay
                 @"\s*<img\s+src=""(?<img>http://[a-z1-9]+-gulli\.ladmedia\.fr/r/[^""]+/img/var/storage/imports/(?<filename>[^""]+))""\s*alt=""(?<name>[^""]+)""\s*/>" +
                 @"\s*</a>\s*</div>)", RegexOptions.Multiline | RegexOptions.ExplicitCapture | RegexOptions.Singleline);
 
-                MatchCollection matches = ProgramRegex.Matches(ProgramPage.GetContent());
+                string content = ProgramPage.GetContent();
+                MatchCollection matches = ProgramRegex.Matches(content);
                 for (int i = 0; i < matches.Count; i++)
                 {
                     onProgress?.Invoke((double)i / matches.Count);
@@ -99,33 +98,7 @@ namespace GulliReplay
                     }
                 }
 
-                Task.Run(() =>
-                    {
-                        ObservableCollection<EpisodeInfo> films = null;
-                        for (int i = 0; i < programs.Count; i++)
-                        {
-                            ProgramInfo program = programs[i];
-                            GetEpisodeListSync(program, (p) => program.Progress = p);
-                            if (program.IsFilm)
-                            {
-                                program.Name = GulliDataSource.FilmProgramName;
-                                DbUpdate(program);
-                                if (films == null)
-                                {
-                                    films = program.Episodes;
-                                    programs.RemoveAt(i);
-                                    programs.SortedAdd(program);
-                                }
-                                else
-                                {
-                                    films.SortedAdd(program.Episodes);
-                                    programs.RemoveAt(i--);
-                                }
-                            }
-                        }
-                    }
-                );
-
+                GetAllEpisode(programs);
             }
             catch (Exception e)
             {
@@ -141,6 +114,42 @@ namespace GulliReplay
             Exception result = null;
             await Task.Run(() => result = GetProgramListSync(programs, onProgress));
             return result;
+        }
+
+        private bool GetAll = false;
+        public void GetAllEpisode(ObservableCollection<ProgramInfo> programs)
+        {
+            Task.Run(() =>
+            {
+                if (GetAll)
+                    return;
+                GetAll = true;
+
+                ObservableCollection<EpisodeInfo> films = null;
+                for (int i = 0; i < programs.Count; i++)
+                {
+                    ProgramInfo program = programs[i];
+                    GetEpisodeListSync(program, (p) => program.Progress = p);
+                    if (program.IsFilm)
+                    {
+                        program.Name = GulliDataSource.FilmProgramName;
+                        DbUpdate(program);
+                        if (films == null)
+                        {
+                            films = program.Episodes;
+                            programs.RemoveAt(i);
+                            programs.SortedAdd(program);
+                        }
+                        else
+                        {
+                            films.SortedAdd(program.Episodes);
+                            programs.RemoveAt(i--);
+                        }
+                    }
+                }
+
+                GetAll = false;
+            });
         }
 
         public Exception GetEpisodeListSync(ProgramInfo program, Action<double> onProgress = null)
@@ -166,7 +175,7 @@ namespace GulliReplay
                     foreach (ProgramInfo pgm in programs)
                     {
                         Regex EpisodeRegex = new Regex(
-                            @"<a href=""" + pgm.Url + @"/VOD(?<vid>\d+)""><img class=""img-responsive""\s+src=""(?<img>[^""]+/img/var/storage/imports/(?<filename>[^""]+))""/><span\s+class=""title"">" +
+                            @"<a href=""" + pgm.Url + @"/(VOD)?(?<vid>\d+)""><img class=""img-responsive""\s+src=""(?<img>[^""]+/img/var/storage/imports/(?<filename>[^""]+))""/><span\s+class=""title"">" +
                             @"<span>Saison (?<saison>\d+)\s*,\s*&Eacute;pisode\s*(?<episode>\d+)</span>(?<title>[^<]+)</span></a>",
                             RegexOptions.Multiline | RegexOptions.ExplicitCapture | RegexOptions.Singleline);
 
@@ -197,6 +206,7 @@ namespace GulliReplay
                             }
                             else
                                 episode = epd.First();
+
                             program.Episodes.SortedAdd(episode);
                         }
                     }

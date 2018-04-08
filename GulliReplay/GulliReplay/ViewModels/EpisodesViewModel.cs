@@ -29,7 +29,7 @@ namespace GulliReplay
                 Program.PropertyChanged += PropertyChangedEventHandler;
                 IsBusy = Program.IsUpdating;
                 EpisodeList = program.Episodes;
-                Title = program.Name;
+                Title = program.Name + " (" + EpisodeList.Count.ToString() + ")";
             }
         }
         private void PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)

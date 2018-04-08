@@ -10,4 +10,5 @@
 /GulliReplay/GulliReplay.iOS/obj
 /GulliReplay/GulliReplay.UWP/bin
 /GulliReplay/GulliReplay.UWP/obj
-/GulliReplay/GulliReplay.Android/Resources/drawable/Thumbs.db
+Thumbs.db
+!*.apk

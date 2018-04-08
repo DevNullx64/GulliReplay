@@ -44,6 +44,10 @@ namespace GulliReplay
             if (result == 0)
             {
                 result = Episode.CompareTo(other.Episode);
+                if (result == 0)
+                {
+                    result = Title.CompareTo(other.Title);
+                }
             }
 
             return result;
