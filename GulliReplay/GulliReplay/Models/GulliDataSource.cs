@@ -236,8 +236,8 @@ namespace GulliReplay
             string str = string.Format("http://gulli-replay-transmux.scdn.arkena.com/{0}/{0}{1}.mp4", episode.Id, quality);
             return new Uri(str);
         }
-        static int imgHeigth = App.DisplayScreenWidth >> 1;
-        static int imgWidth = (imgHeigth >> 2) * 3;
+        static uint imgHeigth = App.DisplayScreenWidth >> 1;
+        static uint imgWidth = (imgHeigth >> 2) * 3;
 
         public string GetImageUrl(string image)
         {

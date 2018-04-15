@@ -4,7 +4,7 @@
              x:Class="GulliReplay.ProgramPage"
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="Parameters.png" Text="Search" Clicked="Parameters_Clicked"/>
+        <ToolbarItem Icon="Parameters.png" Text="Paramètres" Clicked="Parameters_Clicked"/>
     </ContentPage.ToolbarItems>
     <StackLayout>
         <Grid IsVisible="{Binding IsBusy}">
@@ -12,6 +12,9 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
             <Label Grid.Column="0">Mise à jour... </Label>
             <ProgressBar Grid.Column="1" Progress="{Binding Progress}" />
         </Grid>

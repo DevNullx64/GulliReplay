@@ -40,15 +40,6 @@ namespace GulliReplay.UWP
             //GulliReplay.App.DisplayScreenHeight = (int)ApplicationView.GetForCurrentView().VisibleBounds.Height;
             //GulliReplay.App.DisplayScreenWidth = (int)ApplicationView.GetForCurrentView().VisibleBounds.Width;
 
-            // Size of screen's resolution
-            //screensize.App.DisplayScreenWidth = DisplayInformation.GetForCurrentView().ScreenHeightInRawPixels;
-            //screensize.App.DisplayScreenHeight = DisplayInformation.GetForCurrentView().ScreenWidthInRawPixels;
-
-            // Pixels per View Pixel
-            // - https://msdn.microsoft.com/en-us/windows/uwp/layout/design-and-ui-intro#effective-pixels-and-scaling
-            // - https://msdn.microsoft.com/en-us/windows/uwp/layout/screen-sizes-and-breakpoints-for-responsive-design
-            //GulliReplay.App.DisplayScaleFactor = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
-
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
@@ -80,6 +71,15 @@ namespace GulliReplay.UWP
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
+
+                // Size of screen's resolution
+                GulliReplay.App.DisplayScreenWidth = DisplayInformation.GetForCurrentView().ScreenHeightInRawPixels;
+                GulliReplay.App.DisplayScreenHeight = DisplayInformation.GetForCurrentView().ScreenWidthInRawPixels;
+
+                // Pixels per View Pixel
+                // - https://msdn.microsoft.com/en-us/windows/uwp/layout/design-and-ui-intro#effective-pixels-and-scaling
+                // - https://msdn.microsoft.com/en-us/windows/uwp/layout/screen-sizes-and-breakpoints-for-responsive-design
+                GulliReplay.App.DisplayScaleFactor = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
             }
 
             if (rootFrame.Content == null)

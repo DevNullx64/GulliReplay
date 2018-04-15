@@ -23,8 +23,8 @@ namespace GulliReplay.Droid
         {
             Current = this;
 
-            App.DisplayScreenWidth = Resources.DisplayMetrics.WidthPixels;
-            App.DisplayScreenHeight = Resources.DisplayMetrics.HeightPixels;
+            App.DisplayScreenWidth = (uint)Resources.DisplayMetrics.WidthPixels;
+            App.DisplayScreenHeight = (uint)Resources.DisplayMetrics.HeightPixels;
             App.DisplayScaleFactor = (double)Resources.DisplayMetrics.Density;
 
             TabLayoutResource = Resource.Layout.Tabbar;
