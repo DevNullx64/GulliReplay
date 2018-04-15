@@ -8,14 +8,21 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Android.Content.Res;
+using System.Threading.Tasks;
 
 namespace GulliReplay.Droid
 {
     [Activity(Label = "GulliReplay", Icon = "@drawable/icon", Theme = "@style/splashscreen", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        // Field, properties, and method for Video Picker
+        public static MainActivity Current { private set; get; }
+        public static readonly int PickImageId = 1000;
+
         protected override void OnCreate(Bundle bundle)
         {
+            Current = this;
+
             App.DisplayScreenWidth = Resources.DisplayMetrics.WidthPixels;
             App.DisplayScreenHeight = Resources.DisplayMetrics.HeightPixels;
             App.DisplayScaleFactor = (double)Resources.DisplayMetrics.Density;
@@ -54,9 +61,23 @@ namespace GulliReplay.Droid
             setUiOptions();
         }
 
+        public TaskCompletionSource<string> PickImageTaskCompletionSource { set; get; }
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == PickImageId)
+            {
+                if ((resultCode == Result.Ok) && (data != null))
+                {
+                    // Set the filename as the completion of the Task
+                    PickImageTaskCompletionSource.SetResult(data.DataString);
+                }
+                else
+                {
+                    PickImageTaskCompletionSource.SetResult(null);
+                }
+            }
         }
     }
 }

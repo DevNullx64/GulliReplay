@@ -29,10 +29,10 @@
                                    LineBreakMode="WordWrap" 
                                    Style="{DynamicResource ListItemTextStyle}" 
                                    FontSize="16" />
-                            <StackLayout Orientation="Horizontal">
+                            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsEpisode}">
                                 <Label Text="Saison:" LineBreakMode="WordWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="12" />
                                 <Label Text="{Binding Saison}" LineBreakMode="WordWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="12" />
-                                <Label Text="/ Episode:" LineBreakMode="WordWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="12" />
+                                <Label Text="/  Episode:" LineBreakMode="WordWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="12" />
                                 <Label Text="{Binding Episode}" LineBreakMode="WordWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="12" />
                             </StackLayout>
                             <Image x:Name="img" Source="{Binding ImageUrl}"/>

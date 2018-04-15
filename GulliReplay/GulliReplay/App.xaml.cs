@@ -7,11 +7,7 @@ namespace GulliReplay
         public App()
         {
             InitializeComponent();
-
-            if (Device.RuntimePlatform == Device.iOS)
-                MainPage = new ProgramPage();
-            else
-                MainPage = new NavigationPage(new ProgramPage());
+            MainPage = new NavigationPage(new ProgramPage());
         }
 
         public static int DisplayScreenWidth { get; internal set; }

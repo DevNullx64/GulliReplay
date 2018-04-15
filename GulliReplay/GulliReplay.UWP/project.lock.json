@@ -374,20 +374,6 @@
           "System.Xml.XDocument": "4.0.11"
         }
       },
-      "Rox.Xamarin.Video/2.1.0": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Forms": "1.0.0"
-        },
-        "compile": {
-          "lib/UAP10/Rox.Xamarin.Video.Portable.dll": {},
-          "lib/UAP10/Rox.Xamarin.Video.Uwp.dll": {}
-        },
-        "runtime": {
-          "lib/UAP10/Rox.Xamarin.Video.Portable.dll": {},
-          "lib/UAP10/Rox.Xamarin.Video.Uwp.dll": {}
-        }
-      },
       "runtime.native.System.IO.Compression/4.1.0": {
         "type": "package",
         "dependencies": {
@@ -2736,20 +2722,6 @@
           "System.Threading.Timer": "4.0.1",
           "System.Xml.ReaderWriter": "4.0.11",
           "System.Xml.XDocument": "4.0.11"
-        }
-      },
-      "Rox.Xamarin.Video/2.1.0": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Forms": "1.0.0"
-        },
-        "compile": {
-          "lib/UAP10/Rox.Xamarin.Video.Portable.dll": {},
-          "lib/UAP10/Rox.Xamarin.Video.Uwp.dll": {}
-        },
-        "runtime": {
-          "lib/UAP10/Rox.Xamarin.Video.Portable.dll": {},
-          "lib/UAP10/Rox.Xamarin.Video.Uwp.dll": {}
         }
       },
       "runtime.any.System.Collections/4.0.11": {
@@ -5237,20 +5209,6 @@
           "System.Threading.Timer": "4.0.1",
           "System.Xml.ReaderWriter": "4.0.11",
           "System.Xml.XDocument": "4.0.11"
-        }
-      },
-      "Rox.Xamarin.Video/2.1.0": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Forms": "1.0.0"
-        },
-        "compile": {
-          "lib/UAP10/Rox.Xamarin.Video.Portable.dll": {},
-          "lib/UAP10/Rox.Xamarin.Video.Uwp.dll": {}
-        },
-        "runtime": {
-          "lib/UAP10/Rox.Xamarin.Video.Portable.dll": {},
-          "lib/UAP10/Rox.Xamarin.Video.Uwp.dll": {}
         }
       },
       "runtime.aot.System.Collections/4.0.10": {
@@ -7777,20 +7735,6 @@
           "System.Xml.XDocument": "4.0.11"
         }
       },
-      "Rox.Xamarin.Video/2.1.0": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Forms": "1.0.0"
-        },
-        "compile": {
-          "lib/UAP10/Rox.Xamarin.Video.Portable.dll": {},
-          "lib/UAP10/Rox.Xamarin.Video.Uwp.dll": {}
-        },
-        "runtime": {
-          "lib/UAP10/Rox.Xamarin.Video.Portable.dll": {},
-          "lib/UAP10/Rox.Xamarin.Video.Uwp.dll": {}
-        }
-      },
       "runtime.any.System.Collections/4.0.11": {
         "type": "package",
         "dependencies": {
@@ -10285,20 +10229,6 @@
           "System.Threading.Timer": "4.0.1",
           "System.Xml.ReaderWriter": "4.0.11",
           "System.Xml.XDocument": "4.0.11"
-        }
-      },
-      "Rox.Xamarin.Video/2.1.0": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Forms": "1.0.0"
-        },
-        "compile": {
-          "lib/UAP10/Rox.Xamarin.Video.Portable.dll": {},
-          "lib/UAP10/Rox.Xamarin.Video.Uwp.dll": {}
-        },
-        "runtime": {
-          "lib/UAP10/Rox.Xamarin.Video.Portable.dll": {},
-          "lib/UAP10/Rox.Xamarin.Video.Uwp.dll": {}
         }
       },
       "runtime.aot.System.Collections/4.0.10": {
@@ -12831,20 +12761,6 @@
           "System.Xml.XDocument": "4.0.11"
         }
       },
-      "Rox.Xamarin.Video/2.1.0": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Forms": "1.0.0"
-        },
-        "compile": {
-          "lib/UAP10/Rox.Xamarin.Video.Portable.dll": {},
-          "lib/UAP10/Rox.Xamarin.Video.Uwp.dll": {}
-        },
-        "runtime": {
-          "lib/UAP10/Rox.Xamarin.Video.Portable.dll": {},
-          "lib/UAP10/Rox.Xamarin.Video.Uwp.dll": {}
-        }
-      },
       "runtime.any.System.Collections/4.0.11": {
         "type": "package",
         "dependencies": {
@@ -15339,20 +15255,6 @@
           "System.Threading.Timer": "4.0.1",
           "System.Xml.ReaderWriter": "4.0.11",
           "System.Xml.XDocument": "4.0.11"
-        }
-      },
-      "Rox.Xamarin.Video/2.1.0": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Forms": "1.0.0"
-        },
-        "compile": {
-          "lib/UAP10/Rox.Xamarin.Video.Portable.dll": {},
-          "lib/UAP10/Rox.Xamarin.Video.Uwp.dll": {}
-        },
-        "runtime": {
-          "lib/UAP10/Rox.Xamarin.Video.Portable.dll": {},
-          "lib/UAP10/Rox.Xamarin.Video.Uwp.dll": {}
         }
       },
       "runtime.aot.System.Collections/4.0.10": {
@@ -20241,22 +20143,6 @@
         "dotnet_library_license.txt",
         "netstandard.library.1.6.0.nupkg.sha512",
         "netstandard.library.nuspec"
-      ]
-    },
-    "Rox.Xamarin.Video/2.1.0": {
-      "sha512": "ILz5NXXyh6T2el/CoKv+zOgxxVcHBH46iGc0iqlznwI2/JCI/IYUPz7qZXwVGwFPRbpCoODu1TR8iQEZ96E2gQ==",
-      "type": "package",
-      "path": "rox.xamarin.video/2.1.0",
-      "files": [
-        "lib/MonoAndroid10/Rox.Xamarin.Video.Android.dll",
-        "lib/MonoAndroid10/Rox.Xamarin.Video.Portable.dll",
-        "lib/UAP10/Rox.Xamarin.Video.Portable.dll",
-        "lib/UAP10/Rox.Xamarin.Video.Uwp.dll",
-        "lib/Xamarin.iOS10/Rox.Xamarin.Video.Ios.dll",
-        "lib/Xamarin.iOS10/Rox.Xamarin.Video.Portable.dll",
-        "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Rox.Xamarin.Video.Portable.dll",
-        "rox.xamarin.video.2.1.0.nupkg.sha512",
-        "rox.xamarin.video.nuspec"
       ]
     },
     "runtime.any.System.Collections/4.0.11": {
@@ -27464,7 +27350,6 @@
   "projectFileDependencyGroups": {
     "": [
       "Microsoft.NETCore.UniversalWindowsPlatform >= 6.0.8",
-      "Rox.Xamarin.Video >= 2.1.0",
       "SQLitePCLRaw.bundle_green >= 1.1.10",
       "SQLitePCLRaw.core >= 1.1.10",
       "Xam.Plugin.Connectivity >= 3.1.1",
@@ -27478,6 +27363,7 @@
     "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {}
   },
   "project": {
+    "version": "1.0.0",
     "restore": {
       "projectUniqueName": "D:\\Users\\Luc\\Source\\Repos\\GulliReplay\\GulliReplay\\GulliReplay.UWP\\GulliReplay.UWP.csproj",
       "projectName": "GulliReplay.UWP",
@@ -27501,7 +27387,6 @@
     },
     "dependencies": {
       "Microsoft.NETCore.UniversalWindowsPlatform": "[6.0.8, )",
-      "Rox.Xamarin.Video": "[2.1.0, )",
       "SQLitePCLRaw.bundle_green": "[1.1.10, )",
       "SQLitePCLRaw.core": "[1.1.10, )",
       "Xam.Plugin.Connectivity": "[3.1.1, )",

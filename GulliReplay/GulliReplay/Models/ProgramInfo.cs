@@ -12,7 +12,7 @@ namespace GulliReplay
     {
 
         [Ignore]
-        public ObservableCollection<EpisodeInfo> Episodes { get; set; } = new ObservableCollection<EpisodeInfo>();
+        public ObservableSortedCollection<EpisodeInfo> Episodes { get; set; } = new ObservableSortedCollection<EpisodeInfo>();
 
         private object updateLocker = new object();
 
@@ -63,7 +63,7 @@ namespace GulliReplay
         public string Name { get; set; }
         public string ImageUrl { get; set; }
         [Ignore]
-        internal bool IsFilm => ((Episodes.Count == 1) && (Episodes[0].Saison == 0)) || (Name == GulliDataSource.FilmProgramName);
+        internal bool IsMovie => ((Episodes.Count == 1) && (!Episodes[0].IsEpisode));
 
         public ProgramInfo() { }
         public ProgramInfo(string url, string type, string name, string imageUrl)
@@ -103,5 +103,7 @@ namespace GulliReplay
             if ((propertyName == "IsUpdated") || (propertyName == "IsUpdating"))
                 OnPropertyChanged("IsVisible");
         }
+
+        public override string ToString()=> Url;
     }
 }

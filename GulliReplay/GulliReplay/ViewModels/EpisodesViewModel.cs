@@ -12,7 +12,7 @@ namespace GulliReplay
     {
         private ProgramInfo Program;
 
-        public ObservableCollection<EpisodeInfo> EpisodeList { get; set; }
+        public ObservableSortedCollection<EpisodeInfo> EpisodeList { get; set; }
         public bool IsUpdated { get => Program.IsUpdated; set { } }
         public double Progress { get => Program.Progress; set { } }
 
@@ -23,7 +23,7 @@ namespace GulliReplay
             this.Program = program;
             LoadEpisodeCommand = new Command(async () => await ExecuteLoadItemsCommand());
             if (program == null)
-                EpisodeList = new ObservableCollection<EpisodeInfo>();
+                EpisodeList = new ObservableSortedCollection<EpisodeInfo>();
             else
             {
                 Program.PropertyChanged += PropertyChangedEventHandler;

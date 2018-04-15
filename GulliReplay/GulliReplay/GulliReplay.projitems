@@ -21,7 +21,20 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)FormsVideoLibrary\FileVideoSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FormsVideoLibrary\IVideoPicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FormsVideoLibrary\IVideoPlayerController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FormsVideoLibrary\PositionSlider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FormsVideoLibrary\ResourceVideoSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FormsVideoLibrary\UriVideoSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FormsVideoLibrary\VideoInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FormsVideoLibrary\VideoPlayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FormsVideoLibrary\VideoSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FormsVideoLibrary\VideoSourceConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FormsVideoLibrary\VideoStatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListExtender.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Parameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ObservableSortedCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ImageResizer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EpisodeInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Helpers.cs" />

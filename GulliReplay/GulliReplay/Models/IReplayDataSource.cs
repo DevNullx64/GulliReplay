@@ -9,7 +9,7 @@ namespace GulliReplay
 {
     public interface IReplayDataSource
     {
-        Task<Exception> GetProgramList(ObservableCollection<ProgramInfo> programs, Action<double> onProgress);
+        Task<Exception> GetProgramList(ObservableSortedCollection<ProgramInfo> programs, Action<double> onProgress);
         Task<Exception> GetEpisodeList(ProgramInfo program, Action<double> onProgress);
         Uri GetVideoStream(EpisodeInfo episode);
     }

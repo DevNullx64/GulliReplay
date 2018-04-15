@@ -146,6 +146,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FormsVideoLibrary\VideoPicker.cs" />
+    <Compile Include="FormsVideoLibrary\VideoPlayerRenderer.cs" />
     <Compile Include="LocalFile.cs" />
     <Compile Include="StatusBarImplementation.cs" />
     <Compile Include="MainPage.xaml.cs">

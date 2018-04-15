@@ -1,5 +1,4 @@
-﻿using Rox;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace GulliReplay
 {
@@ -11,18 +10,13 @@ namespace GulliReplay
         {
             NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
-            playBackViewModel= new PlayBackViewModel(VideoViewer, item);
-            BindingContext = playBackViewModel;
-        }
-
-        public VideoView GetVideoView()
-        {
-            return VideoViewer;
+            BindingContext = playBackViewModel = new PlayBackViewModel(item);
         }
 
         protected override void OnAppearing()
         {
             DependencyService.Get<IStatusBar>().HideStatusBar();
+            VideoViewer.Play();
         }
 
         protected override void OnDisappearing()
@@ -30,9 +24,6 @@ namespace GulliReplay
             DependencyService.Get<IStatusBar>().ShowStatusBar();
             NavigationPage.SetHasNavigationBar(this, false);
             VideoViewer.Stop();
-            BindingContext = null;
-            playBackViewModel = null;
-            grid.Children.Clear();
         }
     }
 }

@@ -43,7 +43,7 @@ namespace GulliReplay
         private bool PogrameUpdating = false;
         private object ProgramLock = new object();
 
-        public Exception GetProgramListSync(ObservableCollection<ProgramInfo> programs, Action<double> onProgress = null)
+        public Exception GetProgramListSync(ObservableSortedCollection<ProgramInfo> programs, Action<double> onProgress = null)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace GulliReplay
                     query = db.Table<ProgramInfo>();
 
                 if (query != null)
-                    programs.SortedAdd(query);
+                    programs.Add(query);
 
                 Regex ProgramRegex =
                 new Regex(@"(<div\s+class=""wrap-img\s+program""\s*>" +
@@ -94,7 +94,7 @@ namespace GulliReplay
                                 WebUtility.HtmlDecode(m.Groups["name"].Value),
                                 GetImage(new Uri(GetImageUrl(m.Groups["filename"].Value))));
                         DbInsert(program);
-                        programs.SortedAdd(program);
+                        programs.Add(program);
                     }
                 }
 
@@ -109,7 +109,7 @@ namespace GulliReplay
 
             return null;
         }
-        public async Task<Exception> GetProgramList(ObservableCollection<ProgramInfo> programs, Action<double> onProgress = null)
+        public async Task<Exception> GetProgramList(ObservableSortedCollection<ProgramInfo> programs, Action<double> onProgress = null)
         {
             Exception result = null;
             await Task.Run(() => result = GetProgramListSync(programs, onProgress));
@@ -117,7 +117,7 @@ namespace GulliReplay
         }
 
         private bool GetAll = false;
-        public void GetAllEpisode(ObservableCollection<ProgramInfo> programs)
+        public void GetAllEpisode(ObservableSortedCollection<ProgramInfo> programs)
         {
             Task.Run(() =>
             {
@@ -125,12 +125,12 @@ namespace GulliReplay
                     return;
                 GetAll = true;
 
-                ObservableCollection<EpisodeInfo> films = null;
+                ObservableSortedCollection<EpisodeInfo> films = null;
                 for (int i = 0; i < programs.Count; i++)
                 {
                     ProgramInfo program = programs[i];
                     GetEpisodeListSync(program, (p) => program.Progress = p);
-                    if (program.IsFilm)
+                    if (program.IsMovie)
                     {
                         program.Name = GulliDataSource.FilmProgramName;
                         DbUpdate(program);
@@ -138,11 +138,11 @@ namespace GulliReplay
                         {
                             films = program.Episodes;
                             programs.RemoveAt(i);
-                            programs.SortedAdd(program);
+                            programs.Add(program);
                         }
                         else
                         {
-                            films.SortedAdd(program.Episodes);
+                            films.Add(program.Episodes);
                             programs.RemoveAt(i--);
                         }
                     }
@@ -179,7 +179,7 @@ namespace GulliReplay
                             @"<span>Saison (?<saison>\d+)\s*,\s*&Eacute;pisode\s*(?<episode>\d+)</span>(?<title>[^<]+)</span></a>",
                             RegexOptions.Multiline | RegexOptions.ExplicitCapture | RegexOptions.Singleline);
 
-                        WebRequest request = HttpWebRequest.Create(pgm.Url);
+                        HttpWebRequest request = HttpWebRequest.Create(pgm.Url) as HttpWebRequest;
                         string content = request.GetContent();
                         MatchCollection matches = EpisodeRegex.Matches(content);
                         for (int i = 0; i < matches.Count; i++)
@@ -207,7 +207,7 @@ namespace GulliReplay
                             else
                                 episode = epd.First();
 
-                            program.Episodes.SortedAdd(episode);
+                            program.Episodes.Add(episode);
                         }
                     }
                     Debug.Write(program.Name + ": Updated");

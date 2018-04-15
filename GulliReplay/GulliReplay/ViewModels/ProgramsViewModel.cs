@@ -14,7 +14,7 @@ namespace GulliReplay
         private Page Parent;
         private const string defaultTitle = "Choisis ta série";
 
-        public ObservableCollection<ProgramInfo> ProgramList { get; set; } = new ObservableCollection<ProgramInfo>();
+        public ObservableSortedCollection<ProgramInfo> ProgramList { get; set; } = new ObservableSortedCollection<ProgramInfo>();
         public Command LoadItemsCommand { get; set; }
         double progress = 0;
         public double Progress
@@ -35,6 +35,7 @@ namespace GulliReplay
             if (IsBusy)
                 return;
             IsBusy = true;
+
 
             try
             {

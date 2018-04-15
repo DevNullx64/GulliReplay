@@ -2,25 +2,7 @@
 <ContentPage x:Class="GulliReplay.PlayBack"
         xmlns="http://xamarin.com/schemas/2014/forms"
         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-        xmlns:roxv="clr-namespace:Rox;assembly=Rox.Xamarin.Video.Portable">
-    <Grid x:Name="grid" BackgroundColor="Black">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <roxv:VideoView
-            Grid.Column="0"
-            Grid.Row="0"
-            x:Name="VideoViewer"
-            AutoPlay="True"
-            FullScreen="True"
-            LoopPlay="False"
-            ShowController="True"
-            Source="{Binding VideoSource}"
-            PropertyChangedCommand="{Binding PropertyChangedCommand}"
-            VerticalOptions="FillAndExpand"
-            HorizontalOptions="FillAndExpand"/>
-    </Grid>
+        xmlns:video="clr-namespace:FormsVideoLibrary"
+        BackgroundColor="Black">
+        <video:VideoPlayer x:Name="VideoViewer" Source="{Binding VideoSource}" />
 </ContentPage>

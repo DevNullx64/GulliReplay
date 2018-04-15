@@ -26,6 +26,7 @@ namespace GulliReplay
 
             // Manually deselect item
             ItemsListView.SelectedItem = null;
+
         }
 
         protected override void OnAppearing()
