@@ -14,6 +14,8 @@ namespace GulliReplay
         public byte Saison { get; set; }
         public byte Episode { get; set; }
         [Ignore]
+        public string ImageSource { get => GulliDataSource.Default.GetImage(ImageUrl); set { } }
+        [Ignore]
         public bool IsEpisode { get => Episode != 0 && Saison != 0; set { } }
 
         public EpisodeInfo() { }

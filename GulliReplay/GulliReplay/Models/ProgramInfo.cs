@@ -53,7 +53,7 @@ namespace GulliReplay
             lock (updateLocker)
             {
                 SetProperty(ref isUpdated, updated, "IsUpdated");
-                SetProperty(ref isUpdating, !updated, "IsUpdating");
+                SetProperty(ref isUpdating, false, "IsUpdating");
             }
         }
 
@@ -62,6 +62,8 @@ namespace GulliReplay
         public string Type { get; set; }
         public string Name { get; set; }
         public string ImageUrl { get; set; }
+        [Ignore]
+        public string ImageSource { get => GulliDataSource.Default.GetImage(ImageUrl); set { } }
         [Ignore]
         internal bool IsMovie => ((Episodes.Count == 1) && (!Episodes[0].IsEpisode));
 

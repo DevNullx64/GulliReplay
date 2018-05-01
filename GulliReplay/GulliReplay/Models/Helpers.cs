@@ -14,10 +14,7 @@ namespace GulliReplay
     public static class Helpers
     {
         public static WebResponse GetResponseSync(this Uri uri) => (HttpWebRequest.Create(uri)).GetResponseSync();
-        public static WebResponse GetResponseSync(this WebRequest request)
-        {
-            return request.GetResponseAsync().GetAwaiter().GetResult();
-        }
+        public static WebResponse GetResponseSync(this WebRequest request) => request.GetResponseAsync().GetAwaiter().GetResult();
 
         public static string GetContent(this Uri uri) => GetContent(HttpWebRequest.Create(uri) as HttpWebRequest);
         public static string GetContent(this HttpWebRequest request)
@@ -43,25 +40,51 @@ namespace GulliReplay
             }
         }
 
-        public static bool Download(Uri uri, string fileName)
+        private static object BackgroundDownloaderLocker = new object();
+        private static HashSet<string> BackgroundDownloading = new HashSet<string>();
+        public static void BackgroundDownloader(Uri uri, string fileName, Action<object> action = null, object actionState = null)
         {
             if (!fileName.StartsWith(LocalFile.Root))
                 fileName = Path.Combine(LocalFile.Root, fileName);
 
-            try
+            bool downloading;
+            lock (BackgroundDownloaderLocker)
             {
-                WebRequest request = HttpWebRequest.Create(uri);
-                using (WebResponse response = request.GetResponseSync())
-                using (Stream content = response.GetResponseStream())
-                using (Stream file = File.Create(fileName))
-                    content.CopyTo(file);
+                downloading = BackgroundDownloading.Contains(fileName);
+                if (!downloading)
+                    BackgroundDownloading.Add(fileName);
             }
-            catch (Exception e)
-            {
-                Debug.Write(e.Message);
-                return false;
-            }
-            return true;
+
+            if (!downloading)
+                try
+                {
+                    HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
+                    request.BeginGetResponse((o) =>
+                    {
+                        try
+                        {
+                            Tuple<HttpWebRequest, string> state = (Tuple<HttpWebRequest, string>)o.AsyncState;
+                            HttpWebResponse response = (HttpWebResponse)state.Item1.EndGetResponse(o);
+                            using (Stream content = response.GetResponseStream())
+                            using (Stream file = File.Create(state.Item2))
+                                content.CopyTo(file);
+
+                            lock (BackgroundDownloaderLocker)
+                            {
+                                BackgroundDownloading.Remove(state.Item2);
+                            }
+                            action?.Invoke(actionState);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.Write(e.Message);
+                        }
+                    }, new Tuple<HttpWebRequest, string>(request, fileName));
+                }
+                catch (Exception e)
+                {
+                    Debug.Write(e.Message);
+                }
         }
     }
 }

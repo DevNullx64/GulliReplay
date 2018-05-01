@@ -42,7 +42,7 @@
                                     FontSize="16"/>
                                 <ProgressBar Grid.Column="1" Progress="{Binding Progress}" IsVisible="{Binding IsVisible}" />
                             </Grid>
-                            <Image x:Name="img" Source="{Binding ImageUrl}" />
+                            <Image x:Name="img" Source="{Binding ImageSource}" />
                         </StackLayout>
 				    </ViewCell>
 			    </DataTemplate>

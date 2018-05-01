@@ -35,7 +35,7 @@
                                 <Label Text="/  Episode:" LineBreakMode="WordWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="12" />
                                 <Label Text="{Binding Episode}" LineBreakMode="WordWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="12" />
                             </StackLayout>
-                            <Image x:Name="img" Source="{Binding ImageUrl}"/>
+                            <Image x:Name="img" Source="{Binding ImageSource}"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

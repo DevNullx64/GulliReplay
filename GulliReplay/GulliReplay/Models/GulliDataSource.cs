@@ -10,6 +10,8 @@ using System.Diagnostics;
 using System.Threading;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
+using System.Linq;
+using System.Collections;
 
 namespace GulliReplay
 {
@@ -30,14 +32,14 @@ namespace GulliReplay
             db.CreateTable<EpisodeInfo>();
         }
 
-        private object Locker = new object();
+        private object DbLocker = new object();
         public int DbInsert(object item)
         {
-            lock (Locker) return db.Insert(item);
+            lock (DbLocker) return db.Insert(item);
         }
         public int DbUpdate(object item)
         {
-            lock (Locker) return db.Update(item);
+            lock (DbLocker) return db.Update(item);
         }
 
         private bool PogrameUpdating = false;
@@ -65,7 +67,7 @@ namespace GulliReplay
                 }
 
                 TableQuery<ProgramInfo> query = null;
-                lock (Locker)
+                lock (DbLocker)
                     query = db.Table<ProgramInfo>();
 
                 if (query != null)
@@ -79,27 +81,32 @@ namespace GulliReplay
 
                 string content = ProgramPage.GetContent();
                 MatchCollection matches = ProgramRegex.Matches(content);
+                List<Match> matcheList = new List<Match>(matches.Count);
                 for (int i = 0; i < matches.Count; i++)
-                {
-                    onProgress?.Invoke((double)i / matches.Count);
+                    matcheList.Add(matches[i]);
 
-                    Match m = matches[i];
+                int count = 0;
+                Parallel.ForEach(matcheList, (Match m) =>
+                {
+                    count++;
+                    onProgress?.Invoke((double)count / matcheList.Count);
                     string s = m.Value;
 
                     string url = m.Groups["url"].Value;
-                    var pgm = query.Where((p) => p.Url == url);
-                    ProgramInfo program;
-                    if (pgm.Count() == 0)
+                    if (query.Where((p) => p.Url == url).Count() == 0)
                     {
-                        program = new ProgramInfo(
+                        if (SynchronizationContext.Current == null)
+                            SynchronizationContext.SetSynchronizationContext(programs.SynchronizationObject);
+
+                        ProgramInfo program = new ProgramInfo(
                                 m.Groups["url"].Value,
                                 m.Groups["type"].Value,
                                 WebUtility.HtmlDecode(m.Groups["name"].Value),
-                                GetImage(new Uri(GetImageUrl(m.Groups["filename"].Value))));
+                                GetImageUrl(m.Groups["filename"].Value));
                         DbInsert(program);
                         programs.Add(program);
                     }
-                }
+                });
 
                 GetAllEpisode(programs);
             }
@@ -119,38 +126,48 @@ namespace GulliReplay
             return result;
         }
 
+        private object GetAllLocker = new object();
         private bool GetAll = false;
         public void GetAllEpisode(ObservableSortedCollection<ProgramInfo> programs)
         {
             Task.Run(() =>
             {
-                if (GetAll)
-                    return;
-                GetAll = true;
-
-                ObservableSortedCollection<EpisodeInfo> films = null;
-                for (int i = 0; i < programs.Count; i++)
+                try
                 {
-                    ProgramInfo program = programs[i];
-                    GetEpisodeListSync(program, (p) => program.Progress = p);
-                    if (program.IsMovie)
-                    {
-                        program.Name = GulliDataSource.FilmProgramName;
-                        DbUpdate(program);
-                        if (films == null)
-                        {
-                            films = program.Episodes;
-                            programs.RemoveAt(i);
-                            programs.Add(program);
-                        }
-                        else
-                        {
-                            films.Add(program.Episodes);
-                            programs.RemoveAt(i--);
-                        }
-                    }
-                }
+                    if (GetAll)
+                        return;
+                    GetAll = true;
 
+                    ObservableSortedCollection<EpisodeInfo> films = null;
+                    Parallel.ForEach(new List<ProgramInfo>(programs), (ProgramInfo program) =>
+                    {
+                        GetEpisodeListSync(program, (p) => program.Progress = p);
+                        if (program.Episodes.Count == 0)
+                        {
+                            programs.Remove(program);
+                        }
+                        else if (program.IsMovie)
+                        {
+                            programs.Remove(program);
+                            program.Name = GulliDataSource.FilmProgramName;
+                            DbUpdate(program);
+                            lock (GetAllLocker)
+                                if (films == null)
+                                {
+                                    films = program.Episodes;
+                                    programs.Add(program);
+                                }
+                                else
+                                {
+                                    films.Add(program.Episodes);
+                                }
+                        }
+                    });
+                }
+                catch (Exception e)
+                {
+                    Debug.Write(e.Message);
+                }
                 GetAll = false;
             });
         }
@@ -165,7 +182,7 @@ namespace GulliReplay
 
                     TableQuery<EpisodeInfo> query;
                     TableQuery<ProgramInfo> programs;
-                    lock (Locker)
+                    lock (DbLocker)
                     {
                         programs = db.Table<ProgramInfo>().Where((e) => e.Name == program.Name);
                         List<string> urls = new List<string>();
@@ -201,7 +218,7 @@ namespace GulliReplay
                                     pgm.Url,
                                     vid,
                                     WebUtility.HtmlDecode(m.Groups["title"].Value.Replace("\n", "").Trim()),
-                                    GetImage(new Uri(GetImageUrl(m.Groups["filename"].Value))),
+                                    GetImageUrl(m.Groups["filename"].Value),
                                     byte.Parse(m.Groups["saison"].Value),
                                     byte.Parse(m.Groups["episode"].Value));
 
@@ -244,17 +261,22 @@ namespace GulliReplay
 
         public string GetImageUrl(string image)
         {
-            return "http://resize-gulli.ladmedia.fr/r/" + imgHeigth.ToString() + "," + imgWidth.ToString() + ",smartcrop,center-top/img/var/storage/imports/" + image;
+            string result = "http://resize-gulli.ladmedia.fr/r/" + imgHeigth.ToString() + "," + imgWidth.ToString() + ",smartcrop,center-top/img/var/storage/imports/" + image;
+            GetImage(result);
+            return result;
         }
 
+        public string GetImage(string uri) => GetImage(new Uri(uri));
         public string GetImage(Uri uri)
         {
             string result = Path.Combine(LocalFile.Root, Path.GetFileName(uri.ToString()));
-            int retry = 3;
-            if (!File.Exists(result))
-                while (!Helpers.Download(uri, result) && (retry > 0))
-                    retry--;
-            return (retry > 0) ? result : uri.ToString();
+            if (File.Exists(result))
+                return result;
+            else
+            {
+                Helpers.BackgroundDownloader(uri, result);
+                return uri.ToString();
+            }
         }
 
         public List<ProgramInfo> GetProgramList()

@@ -28,5 +28,16 @@ namespace Extender
 
             return ~lower;
         }
+
+        public static List<T> Where<T>(this IEnumerable<T> enumerable, Func<T, bool> predExpr)
+        {
+            List<T> result = new List<T>();
+
+            foreach (T element in enumerable)
+                if (predExpr(element))
+                    result.Add(element);
+
+            return result;
+        }
     }
 }
