@@ -2,20 +2,16 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace System.Collections.ObjectModel
 {
     public class ObservableSortedCollection<T> :
-        IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable, IList, ICollection, IReadOnlyList<T>, IReadOnlyCollection<T>, INotifyCollectionChanged, INotifyPropertyChanged
+        IList<T>, IList, IReadOnlyList<T>, INotifyCollectionChanged, INotifyPropertyChanged
         where T : IComparable<T>
     {
-        protected ObservableCollection<T> Collection;
-
-        object IList.this[int index]
-        {
-            get => Collection[index];
-            set => this[index] = (T)value;
-        }
+        protected readonly ObservableCollection<T> Collection = new ObservableCollection<T>();
+        protected readonly IComparer<T> Comparer;
 
         public T this[int index]
         {
@@ -26,12 +22,18 @@ namespace System.Collections.ObjectModel
                 _Add(value);
             }
         }
+        object IList.this[int index]
+        {
+            get => Collection[index];
+            set => this[index] = (T)value;
+        }
 
         public int Count => Collection.Count;
 
         public bool IsReadOnly => ((IList<T>)Collection).IsReadOnly;
         public bool IsFixedSize => ((IList)Collection).IsFixedSize;
         public object SyncRoot => ((IList)Collection).SyncRoot;
+        public readonly SynchronizationContext SynchronizationObject = SynchronizationContext.Current;
         public bool IsSynchronized => ((IList)Collection).IsSynchronized;
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
@@ -48,7 +50,7 @@ namespace System.Collections.ObjectModel
             while (lower <= upper)
             {
                 int middle = lower + (upper - lower) / 2;
-                int comparisonResult = value.CompareTo(Collection[middle]);
+                int comparisonResult = Comparer.Compare(value, Collection[middle]);
                 if (comparisonResult == 0)
                     return middle;
                 else if (comparisonResult < 0)
@@ -69,37 +71,23 @@ namespace System.Collections.ObjectModel
                 index = Collection.Count;
                 Collection.Insert(i, item);
             }
-
             return index;
         }
 
-        private SynchronizationContext SyncContext = SynchronizationContext.Current;
-        protected void OnNotifyCollectionChangedEventHandlerSync(object sender, NotifyCollectionChangedEventArgs e)
-            => SyncContext.Post((s)
-                => OnNotifyCollectionChangedEventHandler(this, s as NotifyCollectionChangedEventArgs), e);
         protected void OnNotifyCollectionChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
-            => CollectionChanged?.Invoke(this, e);
+            => SynchronizationObject.Post((s) => CollectionChanged?.Invoke(this, s as NotifyCollectionChangedEventArgs), e);
 
-        protected void OnPropertyChangedEventHandlerSync(object sender, PropertyChangedEventArgs e)
-            => SyncContext.Post((s)
-                => OnPropertyChangedEventHandler(this, s as PropertyChangedEventArgs), e);
         protected void OnPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
-            => PropertyChanged?.Invoke(this, e);
+            => SynchronizationObject.Post((s) => PropertyChanged?.Invoke(this, s as PropertyChangedEventArgs), e);
+
 
         public ObservableSortedCollection(IEnumerable<T> enumerable = null)
+            : this(Comparer<T>.Default, enumerable) { }
+        public ObservableSortedCollection(IComparer<T> comparer, IEnumerable<T> enumerable = null)
         {
-            Collection = new ObservableCollection<T>();
-            SyncContext = SynchronizationContext.Current;
-            if (SyncContext == null)
-            {
-                Collection.CollectionChanged += OnNotifyCollectionChangedEventHandler;
-                ((INotifyPropertyChanged)Collection).PropertyChanged += OnPropertyChangedEventHandler;
-            }
-            else
-            {
-                Collection.CollectionChanged += OnNotifyCollectionChangedEventHandlerSync;
-                ((INotifyPropertyChanged)Collection).PropertyChanged += OnPropertyChangedEventHandlerSync;
-            }
+            Comparer = comparer;
+            Collection.CollectionChanged += OnNotifyCollectionChangedEventHandler;
+            ((INotifyPropertyChanged)Collection).PropertyChanged += OnPropertyChangedEventHandler;
             Add(enumerable);
         }
 
@@ -112,32 +100,39 @@ namespace System.Collections.ObjectModel
         public void Add(T item) => _Add(item);
         public int Add(object value) => _Add((T)value);
 
-        public void Clear() => ((IList<T>)Collection).Clear();
+        public void Clear() => Collection.Clear();
 
-        public bool Contains(T item) => ((IList<T>)Collection).Contains(item);
-        public bool Contains(object value) => ((IList)Collection).Contains(value);
+        public bool Contains(T item) => IndexOf(item) >= 0;
+        public bool Contains(object value) => Contains((T)value);
 
-        public void CopyTo(T[] array, int arrayIndex) => ((IList<T>)Collection).CopyTo(array, arrayIndex);
+        public void CopyTo(T[] array, int arrayIndex) => Collection.CopyTo(array, arrayIndex);
         public void CopyTo(Array array, int index) => ((IList)Collection).CopyTo(array, index);
 
         public int IndexOf(T item)
         {
             int result = BinarySearchIndexOf(item);
-            if (result < -1)
-                result = -1;
-
-            return result;
+            return (result >= 0) ? result : -1;
         }
         public int IndexOf(object value) => IndexOf((T)value);
 
         public void Insert(int index, T item) => Collection.Add(item);
-        public void Insert(int index, object value) => Collection.Add((T)value);
+        public void Insert(int index, object value) => Insert(index, (T)value);
 
-        public bool Remove(T item) => ((IList<T>)Collection).Remove(item);
-        public void Remove(object value) => ((IList)Collection).Remove(value);
-        public void RemoveAt(int index) => ((IList<T>)Collection).RemoveAt(index);
+        public bool Remove(T item)
+        {
+            int index = IndexOf(item);
+            if (index >= 0)
+            {
+                RemoveAt(index);
+                return true;
+            }
+            else
+                return false;
+        }
+        public void Remove(object value) => Remove((T)value);
+        public void RemoveAt(int index) => Collection.RemoveAt(index);
 
-        IEnumerator IEnumerable.GetEnumerator() => ((IList<T>)Collection).GetEnumerator();
-        public IEnumerator<T> GetEnumerator() => ((IList<T>)Collection).GetEnumerator();
+        public IEnumerator<T> GetEnumerator() => Collection.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

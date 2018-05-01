@@ -45,6 +45,9 @@ namespace GulliReplay
 
         public Exception GetProgramListSync(ObservableSortedCollection<ProgramInfo> programs, Action<double> onProgress = null)
         {
+            if (SynchronizationContext.Current == null)
+                SynchronizationContext.SetSynchronizationContext(programs.SynchronizationObject);
+
             try
             {
                 lock (ProgramLock)
