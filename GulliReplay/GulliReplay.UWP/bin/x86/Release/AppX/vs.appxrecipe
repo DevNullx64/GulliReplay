@@ -1,0 +1,425 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>EXPANSION</Machine>
+    <WindowsUser>Luc_B</WindowsUser>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetOsVersion>10.0</TargetOsVersion>
+    <TargetOsDescription>Windows 10.0</TargetOsDescription>
+    <SolutionConfiguration>Release|x86</SolutionConfiguration>
+    <PackageArchitecture>x86</PackageArchitecture>
+    <PackageIdentityName>fc8ee5c8-45aa-402b-a996-b7a3ee937969</PackageIdentityName>
+    <PackageIdentityPublisher>CN=Luc</PackageIdentityPublisher>
+    <IntermediateOutputPath>D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\obj\x86\Release\</IntermediateOutputPath>
+    <RemoteDeploymentType>
+    </RemoteDeploymentType>
+    <PackageRegistrationPath>
+    </PackageRegistrationPath>
+    <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
+    <DeployOptionalPackages>false</DeployOptionalPackages>
+    <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
+    <LayoutDir>D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\AppX</LayoutDir>
+    <RegisteredManifestChecksum>5EEF7AA14F1D66057EECABAAF6F33A167C46A5F429F01CCC4B91C447499882EC</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>fc8ee5c8-45aa-402b-a996-b7a3ee937969_1.0.0.0_x86__c27h8x5kny8jj</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>fc8ee5c8-45aa-402b-a996-b7a3ee937969_c27h8x5kny8jj!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>fc8ee5c8-45aa-402b-a996-b7a3ee937969</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=Luc</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+    <JitOptimizationSuppressed>True</JitOptimizationSuppressed>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-29T11:05:26.386</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\BadgeLogo.scale-100.png">
+      <PackagePath>Assets\BadgeLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:06.063</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\BadgeLogo.scale-125.png">
+      <PackagePath>Assets\BadgeLogo.scale-125.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:06.081</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\BadgeLogo.scale-150.png">
+      <PackagePath>Assets\BadgeLogo.scale-150.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:06.141</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\BadgeLogo.scale-200.png">
+      <PackagePath>Assets\BadgeLogo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:06.163</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\BadgeLogo.scale-400.png">
+      <PackagePath>Assets\BadgeLogo.scale-400.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:06.190</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\LargeTile.scale-100.png">
+      <PackagePath>Assets\LargeTile.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.376</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\LargeTile.scale-125.png">
+      <PackagePath>Assets\LargeTile.scale-125.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.415</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\LargeTile.scale-150.png">
+      <PackagePath>Assets\LargeTile.scale-150.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.464</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\LargeTile.scale-200.png">
+      <PackagePath>Assets\LargeTile.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.536</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\LargeTile.scale-400.png">
+      <PackagePath>Assets\LargeTile.scale-400.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.756</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\LockScreenLogo.scale-200.png">
+      <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
+      <Modified>2018-03-06T05:38:37.781</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\SmallTile.scale-100.png">
+      <PackagePath>Assets\SmallTile.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:03.857</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\SmallTile.scale-125.png">
+      <PackagePath>Assets\SmallTile.scale-125.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:03.877</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\SmallTile.scale-150.png">
+      <PackagePath>Assets\SmallTile.scale-150.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:03.897</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\SmallTile.scale-200.png">
+      <PackagePath>Assets\SmallTile.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:03.918</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\SmallTile.scale-400.png">
+      <PackagePath>Assets\SmallTile.scale-400.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:03.955</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\SplashScreen.scale-100.png">
+      <PackagePath>Assets\SplashScreen.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:05.120</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\SplashScreen.scale-125.png">
+      <PackagePath>Assets\SplashScreen.scale-125.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:05.172</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\SplashScreen.scale-150.png">
+      <PackagePath>Assets\SplashScreen.scale-150.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:05.241</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\SplashScreen.scale-200.png">
+      <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:05.363</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\SplashScreen.scale-400.png">
+      <PackagePath>Assets\SplashScreen.scale-400.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:05.744</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square150x150Logo.scale-100.png">
+      <PackagePath>Assets\Square150x150Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:03.978</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square150x150Logo.scale-125.png">
+      <PackagePath>Assets\Square150x150Logo.scale-125.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:03.999</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square150x150Logo.scale-150.png">
+      <PackagePath>Assets\Square150x150Logo.scale-150.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.022</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square150x150Logo.scale-200.png">
+      <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.052</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square150x150Logo.scale-400.png">
+      <PackagePath>Assets\Square150x150Logo.scale-400.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.121</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.altform-unplated_targetsize-16.png">
+      <PackagePath>Assets\Square44x44Logo.altform-unplated_targetsize-16.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.981</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.altform-unplated_targetsize-256.png">
+      <PackagePath>Assets\Square44x44Logo.altform-unplated_targetsize-256.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:05.079</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.altform-unplated_targetsize-32.png">
+      <PackagePath>Assets\Square44x44Logo.altform-unplated_targetsize-32.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:05.014</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.altform-unplated_targetsize-48.png">
+      <PackagePath>Assets\Square44x44Logo.altform-unplated_targetsize-48.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:05.031</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.scale-100.png">
+      <PackagePath>Assets\Square44x44Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.773</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.scale-125.png">
+      <PackagePath>Assets\Square44x44Logo.scale-125.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.789</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.scale-150.png">
+      <PackagePath>Assets\Square44x44Logo.scale-150.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.806</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.scale-200.png">
+      <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.825</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.scale-400.png">
+      <PackagePath>Assets\Square44x44Logo.scale-400.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.852</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.targetsize-16.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-16.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.869</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.targetsize-24.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-24.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.886</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.998</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.targetsize-256.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-256.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.963</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.targetsize-32.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-32.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.902</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Square44x44Logo.targetsize-48.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-48.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.919</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\StoreLogo.scale-100.png">
+      <PackagePath>Assets\StoreLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:06.206</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\StoreLogo.scale-125.png">
+      <PackagePath>Assets\StoreLogo.scale-125.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:06.224</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\StoreLogo.scale-150.png">
+      <PackagePath>Assets\StoreLogo.scale-150.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:06.242</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\StoreLogo.scale-200.png">
+      <PackagePath>Assets\StoreLogo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:06.264</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\StoreLogo.scale-400.png">
+      <PackagePath>Assets\StoreLogo.scale-400.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:06.302</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Wide310x150Logo.scale-100.png">
+      <PackagePath>Assets\Wide310x150Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.142</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Wide310x150Logo.scale-125.png">
+      <PackagePath>Assets\Wide310x150Logo.scale-125.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.167</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Wide310x150Logo.scale-150.png">
+      <PackagePath>Assets\Wide310x150Logo.scale-150.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.196</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Wide310x150Logo.scale-200.png">
+      <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.236</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\Assets\Wide310x150Logo.scale-400.png">
+      <PackagePath>Assets\Wide310x150Logo.scale-400.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-02T06:48:04.345</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\clrcompression.dll">
+      <PackagePath>clrcompression.dll</PackagePath>
+      <Modified>2016-06-13T19:51:30.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\e_sqlite3.dll">
+      <PackagePath>e_sqlite3.dll</PackagePath>
+      <Modified>2018-03-28T07:15:02.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\GulliReplay.dll">
+      <PackagePath>GulliReplay.dll</PackagePath>
+      <Modified>2018-04-29T11:05:25.414</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\GulliReplay.exe">
+      <PackagePath>GulliReplay.exe</PackagePath>
+      <Modified>2018-04-29T11:05:26.366</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\GulliReplay.pdb">
+      <PackagePath>GulliReplay.pdb</PackagePath>
+      <Modified>2018-04-29T11:05:26.365</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2018-04-29T11:04:19.302</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\slideout.png">
+      <PackagePath>slideout.png</PackagePath>
+      <Modified>2018-03-06T05:38:37.806</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\_Resources\0.rsrc">
+      <PackagePath>_Resources\0.rsrc</PackagePath>
+      <Modified>2018-04-29T11:04:50.763</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\_Resources\1.rsrc">
+      <PackagePath>_Resources\1.rsrc</PackagePath>
+      <Modified>2018-04-29T11:04:50.764</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\_Resources\2.rsrc">
+      <PackagePath>_Resources\2.rsrc</PackagePath>
+      <Modified>2018-04-29T11:04:50.764</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\_Resources\3.rsrc">
+      <PackagePath>_Resources\3.rsrc</PackagePath>
+      <Modified>2018-04-29T11:04:50.765</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Users\Luc\Source\Repos\GulliReplay\GulliReplay\GulliReplay.UWP\bin\x86\Release\ilc\_Resources\index.txt">
+      <PackagePath>_Resources\index.txt</PackagePath>
+      <Modified>2018-04-29T11:04:50.765</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\NuGetPackagesFallback\microsoft.net.native.sharedlibrary-x86\1.7.0\build\..\tools\SharedLibrary\ret\Native\Microsoft.NET.Native.Framework.1.7.appx">
+      <Name>Microsoft.NET.Native.Framework.1.7</Name>
+      <Version>1.7.25531.0</Version>
+      <Architecture>x86</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Framework.1.7, MinVersion = 1.7.25531.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\NuGetPackagesFallback\microsoft.net.native.sharedlibrary-x86\1.7.0\build\..\tools\SharedLibrary\ret\Native\Microsoft.NET.Native.Framework.1.7.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\NuGetPackagesFallback\microsoft.net.native.sharedlibrary-x64\1.7.0\build\..\tools\SharedLibrary\ret\Native\Microsoft.NET.Native.Framework.1.7.appx">
+      <Name>Microsoft.NET.Native.Framework.1.7</Name>
+      <Version>1.7.25531.0</Version>
+      <Architecture>x64</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Framework.1.7, MinVersion = 1.7.25531.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\NuGetPackagesFallback\microsoft.net.native.sharedlibrary-x64\1.7.0\build\..\tools\SharedLibrary\ret\Native\Microsoft.NET.Native.Framework.1.7.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\NuGetPackagesFallback\microsoft.net.native.sharedlibrary-arm\1.7.0\build\..\tools\SharedLibrary\ret\Native\Microsoft.NET.Native.Framework.1.7.appx">
+      <Name>Microsoft.NET.Native.Framework.1.7</Name>
+      <Version>1.7.25531.0</Version>
+      <Architecture>arm</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Framework.1.7, MinVersion = 1.7.25531.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\NuGetPackagesFallback\microsoft.net.native.sharedlibrary-arm\1.7.0\build\..\tools\SharedLibrary\ret\Native\Microsoft.NET.Native.Framework.1.7.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Users\Luc_B\.nuget\packages\microsoft.net.native.compiler\1.7.3\build\..\tools\Runtime\x86\Microsoft.NET.Native.Runtime.1.7.appx">
+      <Name>Microsoft.NET.Native.Runtime.1.7</Name>
+      <Version>1.7.25531.0</Version>
+      <Architecture>x86</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Runtime.1.7, MinVersion = 1.7.25531.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Users\Luc_B\.nuget\packages\microsoft.net.native.compiler\1.7.3\build\..\tools\Runtime\x86\Microsoft.NET.Native.Runtime.1.7.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Users\Luc_B\.nuget\packages\microsoft.net.native.compiler\1.7.3\build\..\tools\Runtime\x64\Microsoft.NET.Native.Runtime.1.7.appx">
+      <Name>Microsoft.NET.Native.Runtime.1.7</Name>
+      <Version>1.7.25531.0</Version>
+      <Architecture>x64</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Runtime.1.7, MinVersion = 1.7.25531.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Users\Luc_B\.nuget\packages\microsoft.net.native.compiler\1.7.3\build\..\tools\Runtime\x64\Microsoft.NET.Native.Runtime.1.7.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Users\Luc_B\.nuget\packages\microsoft.net.native.compiler\1.7.3\build\..\tools\Runtime\arm\Microsoft.NET.Native.Runtime.1.7.appx">
+      <Name>Microsoft.NET.Native.Runtime.1.7</Name>
+      <Version>1.7.25531.0</Version>
+      <Architecture>arm</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Runtime.1.7, MinVersion = 1.7.25531.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Users\Luc_B\.nuget\packages\microsoft.net.native.compiler\1.7.3\build\..\tools\Runtime\arm\Microsoft.NET.Native.Runtime.1.7.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
+      <Name>Microsoft.VCLibs.140.00</Name>
+      <Version>14.0.25426.0</Version>
+      <Architecture>ARM</Architecture>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00, MinVersion = 14.0.25426.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Retail\ARM\Microsoft.VCLibs.ARM.14.00.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
+      <Name>Microsoft.VCLibs.140.00</Name>
+      <Version>14.0.25426.0</Version>
+      <Architecture>x64</Architecture>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00, MinVersion = 14.0.25426.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Retail\x64\Microsoft.VCLibs.x64.14.00.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
+      <Name>Microsoft.VCLibs.140.00</Name>
+      <Version>14.0.25426.0</Version>
+      <Architecture>x86</Architecture>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00, MinVersion = 14.0.25426.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Retail\x86\Microsoft.VCLibs.x86.14.00.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+  </ItemGroup>
+</Project>

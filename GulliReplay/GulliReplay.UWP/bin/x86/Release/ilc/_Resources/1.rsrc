@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GulliReplay.ProgramPage"
+             Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="Parameters.png" Text="Paramètres" Clicked="Parameters_Clicked"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout>
+        <Grid IsVisible="{Binding IsBusy}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0">Mise à jour... </Label>
+            <ProgressBar Grid.Column="1" Progress="{Binding Progress}" />
+        </Grid>
+        <ListView x:Name="ItemsListView" 
+            ItemsSource="{Binding ProgramList}"
+            VerticalOptions="FillAndExpand"
+            HasUnevenRows="true"
+            RefreshCommand="{Binding LoadItemsCommand}"
+            IsPullToRefreshEnabled="true"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+            CachingStrategy="RecycleElement"
+            ItemSelected="OnItemSelected">
+		    <ListView.ItemTemplate>
+			    <DataTemplate>
+				    <ViewCell>
+                        <StackLayout>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding Name}" 
+                                    LineBreakMode="WordWrap" 
+                                    Style="{DynamicResource ListItemTextStyle}" 
+                                    FontSize="16"/>
+                                <ProgressBar Grid.Column="1" Progress="{Binding Progress}" IsVisible="{Binding IsVisible}" />
+                            </Grid>
+                            <Image x:Name="img" Source="{Binding ImageUrl}" />
+                        </StackLayout>
+				    </ViewCell>
+			    </DataTemplate>
+		    </ListView.ItemTemplate>
+	    </ListView>
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="GulliReplay.PlayBack"
+        xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:video="clr-namespace:FormsVideoLibrary"
+        BackgroundColor="Black">
+        <video:VideoPlayer x:Name="VideoViewer" Source="{Binding VideoSource}" />
+</ContentPage>

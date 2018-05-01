@@ -1,0 +1,5 @@
+GulliReplay, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  GulliReplay.UWP.App.xaml
+  GulliReplay.UWP.Views.ProgramsPage.xaml
+  GulliReplay.UWP.Views.EpisodesPage.xaml
+  GulliReplay.UWP.Views.PlayBack.xaml
